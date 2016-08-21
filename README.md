@@ -4,9 +4,15 @@
 
 [See it live](https://kiko.gfjaru.com/)
 
-## To do lists
+# Kikofri
 
-Next update is new theme based from Kiko.
+Kikofri is a theme that's a fork of the above-mentioned theme (which I recommend). It came about because I my themes like I like my music: ugly, old and barren. It's an assortment of hacksfiltered through web-design choices from the late 90's/early 00's.
+
+## To do:
+
+* Strip down the theme to the essentials
+* Post a template this repository
+
 
 ## Get Started
 
