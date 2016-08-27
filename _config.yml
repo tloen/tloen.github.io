@@ -1,53 +1,55 @@
-▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉
-▉   K i k o f r i   ▉
-▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉
+---
+# # # # # # # # # # #
+#  K i k o f r i  #
+# # # # # # # # # # #
 
 # Basic
-name:			      "K i k o f r i"
-description:		"dirty and malnourished jekyll theme"
+name: "K i k o f r i"
+description: "dirty and malnourished jekyll theme"
 
 # URL
-url:				""
-#baseurl:		""
-permalink:		/:year/:month/:day/:title.html
+url: ""
+#baseurl: ""
+permalink: /:year/:month/:day/:title.html
 
 # Markdown
-markdown:		kramdown
+markdown: kramdown
 
 # Navigation
 nav:
-  - name:		"about"
-     href:	"/about"
-    
-  - name:		"reference"
-     href:	"/ref"
-    
-  - name:		"contact"
-     href:	"mailto:ivantheterrible@1530to1584.gov?You%20are%20ooold..."  
+ - name: "about"
+   href: "/about"
+
+ - name: "reference"
+   href: "/ref"
+
+ - name: "contact"
+   href: "mailto:ivantheterrible@1530to1584.gov?You%20are%20ooold..."
 
 # Sass
 sass:
-  style:			:compressed
+ style: :compressed
 
 # Excerpt
-excerpt_separator:	<!-ex->
+excerpt_separator: <!-ex->
 
 #Gems
-gems:			[jekyll-paginate]
-paginate:		10
-paginate_path:	"/page:num/"
- 
+gems: [jekyll-paginate]
+paginate: 10
+paginate_path: "/page:num/"
+
 # Scopes
 defaults:
-  -
-    scope:
-      path:		""
-      type:		"pages"
-    values:
-      layout:		"page"
-  -
-    scope:
-      path:		""
-      type:		"posts"
-    values:
-      layout:		"post"
+ -
+  scope:
+   path: ""
+   type: "pages"
+  values:
+   layout: "page"
+ -
+  scope:
+   path: ""
+   type: "posts"
+  values:
+   layout: "post"
+---
