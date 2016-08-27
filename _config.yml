@@ -1,9 +1,9 @@
-# # # # # # # #
-#   K i k o f r i   #
-# # # # # # # #
+▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉
+▉   K i k o f r i   ▉
+▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉ ▉
 
 # Basic
-name:			"K i k o f r i"
+name:			      "K i k o f r i"
 description:		"dirty and malnourished jekyll theme"
 
 # URL
@@ -17,13 +17,13 @@ markdown:		kramdown
 # Navigation
 nav:
   - name:		"about"
-     href:			"/about"
+     href:	"/about"
     
   - name:		"reference"
-     href:			"/ref"
+     href:	"/ref"
     
   - name:		"contact"
-     href:			"mailto:ivantheterrible@1530to1584.gov?You%20are%20ooold..."  
+     href:	"mailto:ivantheterrible@1530to1584.gov?You%20are%20ooold..."  
 
 # Sass
 sass:
