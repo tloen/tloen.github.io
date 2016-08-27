@@ -1,23 +1,19 @@
-# Kiko
-
-[Kiko](http://github.com/gfjaru/Kiko) is a theme for [Jekyll](http://jekyllrb.com), the static site generator. It's designed and developed by [@gfjaru](https://twitter.com/gfjaru).
-
-[See it live](https://kiko.gfjaru.com/)
-
 # Kikofri
 
-Kikofri is a theme that's a fork of the above-mentioned theme (which I do recommend). It came about because I my themes like I like my music: ugly, old and barren. It's an assortment of hacks filtered through web-design choices from the late 90's/early 00's.
+Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.com/gfjaru/Kiko) by  [@gfjaru](https://twitter.com/gfjaru) (which I do recommend). 
+
+It came about because I my themes like I like my music: ugly, old and barren. It's an assortment of hacks filtered through web-design choices from the turn of the millenium.
 
 ## To do:
 
-* Strip the theme down to the essentials
-* Post a template into this repository
+* Clean up redundant markup
+* Reevaluate the need for four layouts
+* Listen to Good Friendly Violent Fun by Exodus
 
-
-## Get Started
+## How to:
 
 1. Fork this repository
-2. Clone the repository to your computer.<br />`git clone https://github.com/YOURUSERNAME/Kiko`  
+2. Clone the repository to your computer.<br />`git clone https://github.com/YOURUSERNAME/Kikofri`  
 3. Run it.<br />`jekyll serve`
 4. Go to http://127.0.0.1:4000.
 
@@ -28,4 +24,4 @@ Kikofri is a theme that's a fork of the above-mentioned theme (which I do recomm
 
 ## License
 
-This theme is released under MIT License.
+Kiko is released under MIT License. Kikofri hasn't got one "official" for the moment. Until further notice the MIT License will do. 

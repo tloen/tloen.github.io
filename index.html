@@ -1,9 +1,9 @@
 ---
 layout: default
 ---
-<header class="masthead">
+<header class="masthead">        
   <h1 class="masthead-title">
-    <a href="{{ site.baseurl }}/">{{ site.name }}<span>&#39;s blog</span></a>
+    <a href="{{ site.baseurl }}/">{{ site.name }}</a>
   </h1>
   <nav class="masthead-nav">
     {% for nav in site.nav %}
@@ -15,7 +15,8 @@ layout: default
 {% if site.posts.size == 0 %}
   <h2>No post found</h2>
 {% else %}
-{% for post in site.posts %}
+{% endif %}
+{% for post in paginator.posts %}
   <div class="list-item">
     <h2 class="list-post-title">
       <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
@@ -23,7 +24,19 @@ layout: default
     <div class="list-post-date">
       <time>{{ post.date | date_to_string }}</time>
     </div>
+    <p class="desc"> {{ post.excerpt | strip_html | truncate: 100 }} </p>
   </div>
 {% endfor %}
-{% endif %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}" class="previous">..</a>
+  {% else %}
+    <span class="previous">|</span>
+  {% endif %}
+  <span class="page_number ">{{ paginator.page }}:{{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}" class="next">/next</a>
+  {% else %}
+    <span class="next "><a href="/">~</a> |</span>
+  {% endif %}
 </div>

@@ -1,53 +1,53 @@
 # # # # # # # #
-#   K i k o   #
+#   K i k o f r i   #
 # # # # # # # #
 
 # Basic
-name:               "Kiko"
-description:        "a clean, lightweight and minimalistic blog theme for jekyll"
-
-# jekyll-seo-tag, see: http://www.rubydoc.info/gems/jekyll-seo-tag/1.2.0
-url:                "//kiko.gfjaru.com"
-author:             "gfjaru"
-twitter:
-  username:         "gfjaru"
-#facebook:
-#  app_id:           1234
-#    publisher:      1234
+name:			"K i k o f r i"
+description:		"dirty and malnourished jekyll theme"
 
 # URL
-baseurl:            ""
-#baseurl:            "" #For Root Domain
-permalink:          /:year/:month/:day/:title/
+url:				""
+#baseurl:		""
+permalink:		/:year/:month/:day/:title.html
 
 # Markdown
-markdown:           kramdown
+markdown:		kramdown
 
 # Navigation
 nav:
-  - name:           "About"
-    href:           "//kiko.gfjaru.com/about"
-  - name:           "Download"
-    href:           "//github.com/gfjaru/Kiko/releases"
+  - name:		"about"
+     href:			"/about"
+    
+  - name:		"reference"
+     href:			"/ref"
+    
+  - name:		"contact"
+     href:			"mailto:ivantheterrible@1530to1584.gov?You%20are%20ooold..."  
 
 # Sass
 sass:
-  style:            :compressed
+  style:			:compressed
 
+# Excerpt
+excerpt_separator:	<!-ex->
+
+#Gems
+gems:			[jekyll-paginate]
+paginate:		10
+paginate_path:	"/page:num/"
+ 
 # Scopes
 defaults:
   -
     scope:
-      path:         ""
-      type:         "pages"
+      path:		""
+      type:		"pages"
     values:
-      layout:       "page"
+      layout:		"page"
   -
     scope:
-      path:         ""
-      type:         "posts"
+      path:		""
+      type:		"posts"
     values:
-      layout:       "post"
-
-gems:
-  - jekyll-seo-tag
+      layout:		"post"
