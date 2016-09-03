@@ -1,10 +1,10 @@
 # Kikofri
 
-Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.com/gfjaru/Kiko) by  [@gfjaru](https://twitter.com/gfjaru) (which I do recommend). 
+Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.com/gfjaru/Kiko) by [@gfjaru](https://twitter.com/gfjaru) (which I do recommend). 
 
 It came about because I my themes like I like my music: ugly, old and barren. It's an assortment of hacks filtered through web-design choices from the turn of the millennium.
 
-You see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.johantkatiska.se/)
+You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.johantkatiska.se/)
 
 ## To do:
 
@@ -17,7 +17,7 @@ You see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.johantk
 1. Fork this repository
 2. Clone the repository to your computer.<br />`git clone https://github.com/YOURUSERNAME/Kikofri`  
 3. Run it.<br />`jekyll serve`
-4. If that doesn't work you might look at the Gemfile in the cloned repository and satisfy dependencies where it is needed.
+4. If that doesn't work you might want to take a look at the Gemfile in the cloned repository and satisfy dependencies where it is needed.
  - I'd recommend [rvm](https://rvm.io/) for this.
 5. Go to http://127.0.0.1:4000 in your browser.
 
