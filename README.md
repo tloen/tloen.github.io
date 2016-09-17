@@ -24,6 +24,7 @@ You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.joha
 ### General pointers:
 
 * If you don't use Github remove the line `gh-pages` in the Gemfile in addition to consulting the [Jekyll documentation](https://jekyllrb.com/docs/home/) for [deployment options](https://jekyllrb.com/docs/deployment-methods/).
+* For indentet paragraphs type: `µµ`
 
 ## Make it a little less ugly:
 
