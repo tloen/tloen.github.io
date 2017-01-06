@@ -8,7 +8,7 @@ name: "K i k o f r i"
 description: "dirty and malnourished jekyll theme"
 
 # URL
-url: "http://kikofri.johantkatiska.se"
+url: ""
 #baseurl: ""
 permalink: /:year/:month/:day/:title.html
 
