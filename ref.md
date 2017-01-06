@@ -15,5 +15,5 @@ These people will tell you that they paid me to do something:
 1. [Evil Corporation](mailto:evilcorp@evilcorp.com)
 2. [Less Evil Corporation](mailto:dalailama@thelama.com)
 3. [Some People](mailto:draganandfriends@subversive.org) I helped out because I wanted to
-4. [My mom](mommienumberouno@aol.com)
+4. [My mom](mailto:mommienumberouno@aol.com)
 
