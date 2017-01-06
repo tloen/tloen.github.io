@@ -7,17 +7,13 @@
           box-sizing: border-box;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
 
 html {
   font-family: 'Ubuntu', Lucida Sans Unicode, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: normal;
   line-height: 1.35;
+  letter-spacing: 1px;
   
   @media (min-width: 38em) {
     
@@ -48,6 +44,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
   color:#912222;
   letter-spacing: -.025rem;
+  text-transform: capitalize;
 }
 
 h1 {
@@ -73,7 +70,9 @@ h4, {
 }
 
 h5, h6 {
-  font-size: 1rem;
+  font-size: 1.05rem;
+  margin:5px 0 3px 0;
+  font-weight: 300;
 }
 
 p {
@@ -99,7 +98,7 @@ ul {
   
   li {
     margin-bottom: .25rem;
-  }
+ }
   
   ul {
     list-style: inherit; 
@@ -118,16 +117,19 @@ ul {
 
 ol {
   list-style: inside decimal;
-  padding-left: 0;
-  
+  padding-left: .25rem;  
+
   li {
     margin-bottom: .25rem;
+
   }
   
   ul,
   ol {
     margin-top: .25rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0;
+    padding-left: 1rem;
+    font-size: 14px;
   }
 }
 
@@ -151,14 +153,14 @@ hr {
 }
 
 strong {
-  color: #0d0d0d;
+  color: inherit;
   font-weight: 600;
 }
 
 abbr {
   font-size: 85%;
   font-weight: bold;
-  color: #0d0d0d;
+  color: inherit;
   text-transform: uppercase;
 }
 
@@ -185,20 +187,11 @@ pre {
 
 code {
   padding: .10em .5em;
-  font-size: 85%;
+  font-size: .85rem;
   color: #4d4d4d;
   background-color: #f2f2f2;
   border-radius: 1px;
   border: solid #cccccc 1px;
-}
-
-p.desc {
-  font-family: 'Ubuntu', Lucida Sans Unicode, sans-serif;
-  font-size: 13px;
-}
-
-p.align {
-  text-align: justify;
 }
 
 .pagination {
@@ -221,30 +214,41 @@ p.align {
     }
  }
 
+p.desc {
+  font-family: 'Ubuntu', Lucida Sans Unicode, sans-serif;
+  font-size: 13px;
+}
+
 pre {
   display: block;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  font-size: .8rem;
+  margin: auto;
+  max-width: 550px;
+  padding: .10rem .5em;
+  font-size: .85rem;
   line-height: 1.4;
   white-space: pre;
   white-space: pre-wrap;
   word-break: break-all;
   // word-wrap: break-word;
-  background-color: #f9f9f9;
+  color: #4d4d4d;
+  background-color: #f2f2f2;
+  border-style: dashed none;
+  border-width: 1px;
+  border-color: #cccccc;
 }
 
 pre code {
-  padding: 0;
-  font-size: 100%;
+  padding: .10em .0em .20em;
+  font-size: .85em;
+  letter-spacing: initial;
   color: inherit;
-  background-color: transparent;
+  background-color: #inherit;
+  border: none;
 }
 
 .highlight {
   margin-bottom: 1rem;
-  border-radius: 4px;
+  border-radius: 1px;
 }
 
 .highlight pre {
@@ -330,7 +334,7 @@ tbody tr:nth-child(odd) th {
 .masthead {
 
   &-title {
-    font-weight: 500;
+    font-weight: 300;
     
     a {
       color: #660000;
@@ -432,6 +436,38 @@ tbody tr:nth-child(odd) th {
     color: #660000;
   }
 }
+
+.tooltip {
+  &:hover .tooltiptext {
+    visibility: visible;
+}    
+    position: relative;
+    display: inline;
+    letter-spacing: 1px;
+    text-decoration: dotted underline;
+    font-size: 100%;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 400px;
+    background-color: #f2f2f2;
+    color: #4d4d4d;
+    text-align: center;
+    line-height: 1.1;
+    font-size:  .85rem;
+    border-radius: 2px;
+    border: 1px solid #000000;
+    padding: 2px 0px 2px;
+    
+    /* Tooltip Position */
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    left: 50%;
+    margin-left: -100px;
+}
+
 
 .footer {
 font-size: 20px;
