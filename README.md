@@ -2,7 +2,7 @@
 
 Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.com/gfjaru/Kiko) by [@gfjaru](https://twitter.com/gfjaru) (which I do recommend). 
 
-It came about because I my themes like I like my music: ugly, old and barren. It's an assortment of hacks filtered through web-design choices from the turn of the millennium.
+It came about because I like my themes like I like my music: ugly, old and barren. It's an assortment of hacks filtered through web-design choices from the turn of the millennium.
 
 You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.johantkatiska.se/)
 
