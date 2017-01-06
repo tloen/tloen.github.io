@@ -20,11 +20,11 @@ nav:
  - name: "about"
    href: "/about"
 
- - name: "reference"
+ - name: "references"
    href: "/ref"
 
  - name: "contact"
-   href: "mailto:ivantheterrible@1530to1584.gov?You%20are%20ooold..."
+   href: "mailto:ivantheterrible@1530to1584.gov"
 
 # Sass
 sass:
