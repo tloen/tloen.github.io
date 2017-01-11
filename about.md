@@ -15,3 +15,7 @@ you long. <style>a{color: #FFF;}a:hover{color: #f0f0f0;}.footer a{color: #800000
 
 I write this blog because I like to chant, rant and sometimes say things that I probably shan't.
 
+## ...this theme #
+
+Shredded! Simply stated in three words: ugly, old and barren. 
+
