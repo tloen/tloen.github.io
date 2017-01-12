@@ -17,5 +17,5 @@ I write this blog because I like to chant, rant and sometimes say things that I 
 
 ## ...this theme #
 
-Shredded! Simply stated in three words: ugly, old and barren. 
+Shredded! Simply stated in three words: ugly, old and barren. <a href="https://github.com/kxxvii/Kikofri" style="color: #800000;">Kikofri@github</a>.
 

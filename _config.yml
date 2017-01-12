@@ -6,9 +6,10 @@
 # Basic
 name: "K i k o f r i"
 description: "dirty and malnourished jekyll theme"
+author: "kxxvii"
 
 # URL
-url: ""
+url: "https://github.com/kxxvii/Kikofri"
 #baseurl: ""
 permalink: /:year/:month/:day/:title.html
 
@@ -34,7 +35,7 @@ sass:
 excerpt_separator: <!-ex->
 
 #Gems
-gems: [jekyll-paginate]
+gems: [jekyll-paginate, jekyll-seo-tag]
 paginate: 10
 paginate_path: "/page:num/"
 
