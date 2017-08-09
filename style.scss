@@ -9,7 +9,7 @@
 
 
 html {
-  font-family: 'Ubuntu', Lucida Sans Unicode, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-size: 18px;
   font-weight: normal;
   line-height: 1.35;
@@ -194,6 +194,11 @@ code {
   border: solid #cccccc 1px;
 }
 
+p.desc {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 13px;
+}
+
 .pagination {
  font-size: 15px;
  font-weight: normal;
@@ -213,11 +218,6 @@ code {
       }
     }
  }
-
-p.desc {
-  font-family: 'Ubuntu', Lucida Sans Unicode, sans-serif;
-  font-size: 13px;
-}
 
 pre {
   display: block;
@@ -310,31 +310,31 @@ tbody tr:nth-child(odd) th {
 }
 
 .container {
-  max-width: 640px;
-  padding: 2rem 1.5rem;
+  max-width: 650px;
+  padding: 5px 110px 5px 110px;
   margin-left:  auto;
   margin-right: auto;
   
-  @media (min-width: 400px) {
-   padding: 5px 120px 5px 100px;
+  @media (max-width: 520px) {
+   padding: 5px 20px 5px 10px;
 }
 }
 
 .container_post {
   max-width: 800px;
-  padding: 2rem 1.5rem;
+  padding: 5px 120px 5px 120px;
   margin-left:  auto;
   margin-right: auto;
   
-  @media (min-width: 400px) {
-   padding: 5px 120px 5px 100px;
+  @media (max-width: 650px) {
+   padding: 5px 20px 5px 10px;
 }
 }
 
 .masthead {
 
   &-title {
-    font-weight: 300;
+    font-weight: 400;
     
     a {
       color: #660000;
@@ -368,7 +368,7 @@ tbody tr:nth-child(odd) th {
   }
   
   .masthead-nav {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     
     a {
       color: #aaa;
@@ -401,6 +401,7 @@ tbody tr:nth-child(odd) th {
 .post {
   &-title {
     margin-bottom: .25rem;
+    font-weight: 400;
   }
   &-date {
     margin-bottom: 1rem;
@@ -470,10 +471,11 @@ tbody tr:nth-child(odd) th {
 
 
 .footer {
-font-size: 20px;
+ font-size: 20px;
  font-weight: bold;
  text-align: center;
- margin: 10px 0px 30px 0px;
+ padding: 0 0 10px 0;
+ margin: auto;
  }
  
 .highlight .hll { background-color: #ffffcc }

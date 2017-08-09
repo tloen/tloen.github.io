@@ -1,0 +1,27 @@
+
+### Font Formats #
+
+You might not want to use all these formats. Here's my motivation for keeping
+these particular formats:
+
+* I kept tff-files to have some sort of backwards compatibility.
+
+* The woff format should be supported by modern browsers.
+    - see https://en.wikipedia.org/wiki/Web_Open_Font_Format#Vendor_support
+
+* Woff2 has got better compression and is supported by most modern browsers.
+    - see https://caniuse.com/woff2
+
+If you think any of these are useless just remove the ones you don't want to
+use.
+
+If you need other formats they can be found here:
+    - https://github.com/earaujoassis/ubuntu-fontface
+
+If you feel that something is missing or that I'm clearly wrong about
+something don't hesitate to make some changes and send me a pull request.
+
+You might also want to take a look at the fonts.css file in the root
+directory.
+
+Note: I'm aware of Google Fonts and I'm not interested in using it.

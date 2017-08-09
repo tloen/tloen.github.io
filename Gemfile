@@ -2,4 +2,6 @@ source 'https://rubygems.org'
 
 gem 'github-pages'
 
-jekyll-paginate
+gem 'jekyll-seo-tag'
+
+gem 'jekyll-paginate'
