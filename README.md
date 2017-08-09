@@ -1,6 +1,6 @@
 # Kikofri
 
-Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.com/gfjaru/Kiko) by [@gfjaru](https://twitter.com/gfjaru) (which I do recommend). 
+Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.com/gfjaru/Kiko) by [@gfjaru](https://twitter.com/gfjaru).
 
 It came about because I like my themes like I like my music: ugly, old and barren. It's an assortment of hacks filtered through web-design choices from the turn of the millennium.
 
@@ -14,17 +14,25 @@ You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.joha
 
 ## How to:
 
-1. Fork this repository
+1. Fork this repository and/or...
 2. Clone the repository to your computer.<br />`git clone https://github.com/YOURUSERNAME/Kikofri`  
 3. Run it.<br />`jekyll serve`
 4. If that doesn't work you might want to take a look at the Gemfile in the cloned repository and satisfy dependencies where it is needed.
- - I'd recommend [rvm](https://rvm.io/) for this.
 5. Go to http://127.0.0.1:4000 in your browser.
 
 ### General pointers:
 
 * If you don't use Github remove the line `gh-pages` in the Gemfile in addition to consulting the [Jekyll documentation](https://jekyllrb.com/docs/home/) for [deployment options](https://jekyllrb.com/docs/deployment-methods/).
 * For indented paragraphs type: `µµ`
+* Tags can be sorted first under `/tags` by making the first letter an Upper-case one in the post's front matter
+    - To sort something last make the first letter a lower-case one 
+    - To just sort tags alphabetically use only upper- or lower-case letter consistently throughout posts
+* Kikofri uses the [Ubuntu font](http://font.ubuntu.com/). If you wish to use another font change or remove these files/lines:
+    - fonts/
+    - fonts.css
+    - \_layouts/default.html (look for: `<link href="/fonts.css"...`)  
+    - \_layouts/default_post.html (look for: `<link href="/fonts.css"...`)
+    - style.scss (look for: `font-family: 'Ubuntu'...`)
 
 ## Make it a little less ugly:
 
@@ -32,15 +40,18 @@ You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.joha
 2. Make some appropriate changes — or inappropriate if you're into those kind of things — in `about.md`.
 3. Navigate to the `_posts` folder and remove the example content by writing `rm *` in your terminal (make sure that you're in the right folder)
  - while you're at it create a post of your own like so: `touch YYYY-MM-DD.md`
- - then do this: `echo -e "---\ntitle: 'Friends Don't Lie.'\ndescription: 'No more.'\nauthor: 'Eleven'\n---" > YYYY-MM-DD.md`
+ - then do something like this: `echo -e "---\ntitle: 'Friends Don't Lie.'\ndescription: 'No more.'\nauthor: 'Eleven'\n---" > YYYY-MM-DD.md`
 4. Type away! Reject my reality and substitute your own!
 
 ## License
 
 The Kikofri theme by [kxxvii](https://github.com/kxxvii) is released under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). The Kiko theme by [@gfjaru](https://twitter.com/gfjaru) is released under the [MIT License](https://opensource.org/licenses/MIT). 
 
+The Ubuntu Font Family is distributed under the [Ubuntu Font License](http://font.ubuntu.com/licence/).
+
+
 ```
-   Copyright 2016 kxxvii
+   Copyright 2017 kxxvii
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
