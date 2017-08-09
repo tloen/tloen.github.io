@@ -2,6 +2,10 @@
 title:        "Example content"
 description:  "A short description of the page's content"
 author:       "P.J."
+tags:
+- Example
+- Post
+- earliest
 ---
 
 <style>
@@ -33,8 +37,10 @@ Of what consequence to you, reader, is my obscure individuality? I live, like yo
 ## Universal Error
 Disregard then, reader, my title and my character, and attend only to my arguments. It is in accordance with universal consent that I undertake to correct universal error; from the OPINION of the human race I appeal to its FAITH.
 
-```user@terminal: ~$ echo "error"```  
-```error```
+```
+user@terminal: ~$ echo "error"  
+error
+```
 
 ### Golem
 Others offer you the spectacle of genius wresting Nature's secrets from her, and unfolding before you her sublime messages; you will find here only a series of experiments upon JUSTICE and RIGHT... The operations shall be conducted under your very eyes; and you shall weigh the result.

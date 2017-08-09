@@ -4,4 +4,4 @@ gem 'github-pages'
 
 gem 'jekyll-seo-tag'
 
-jekyll-paginate
+gem 'jekyll-paginate'

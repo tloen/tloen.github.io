@@ -21,6 +21,9 @@ nav:
  - name: "about"
    href: "/about"
 
+ - name: "tags"
+   href: "/tags"
+
  - name: "references"
    href: "/ref"
 
