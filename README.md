@@ -4,6 +4,8 @@ Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.c
 
 It came about because I like my themes like I like my music: ugly, old and barren. It's an assortment of hacks filtered through web-design choices from the turn of the millennium.
 
+The theme doesn't use any Google Analytics spyware by default. If you necessarily need stuff like that consider using [piwik](https://github.com/piwik/piwik) instead. Kikofri doesn't rely on Google Fonts API for font rendering and the like. Some metadata for search engines is provided by [jekyll-seo-tag](https://github.com/jekyll/jekyll-seo-tag).
+
 You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.johantkatiska.se/)
 
 ## To do:
@@ -22,7 +24,8 @@ You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.joha
 
 ### General pointers:
 
-* If you don't use Github remove the line `gh-pages` in the Gemfile in addition to consulting the [Jekyll documentation](https://jekyllrb.com/docs/home/) for [deployment options](https://jekyllrb.com/docs/deployment-methods/).
+* If you don't use Github remove the line `gh-pages` in the Gemfile in addition to consulting the [Jekyll documentation](https://jekyllrb.com/docs/home/) for [deployment options](https://jekyllrb.com/docs/deployment-methods/)
+* The same goes for `jekyll-seo-tag` and `jekyll-paginate`. If you don't want to use pagination you should also make some changes to the index.html file
 * For indented paragraphs type: `µµ`
 * Tags can be sorted first under `/tags` by making the first letter an Upper-case one in the post's front matter
     - To sort something last make the first letter a lower-case one 
