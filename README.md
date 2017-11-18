@@ -6,7 +6,7 @@ It came about because I like my themes like I like my music: ugly, old and barre
 
 The theme doesn't use any Google Analytics spyware by default. If you necessarily need stuff like that consider using [piwik](https://github.com/piwik/piwik) instead. Kikofri doesn't rely on Google Fonts API for font rendering and the like. Some metadata for search engines is provided by [jekyll-seo-tag](https://github.com/jekyll/jekyll-seo-tag).
 
-You'll see it undead here [http://kikofri.johantkatiska.se/](http://kikofri.johantkatiska.se/)
+You'll see it undead here [https://kxxvii.github.io/Kikofri/](https://kxxvii.github.io/Kikofri/)
 
 ## To do:
 
