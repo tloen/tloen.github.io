@@ -29,14 +29,14 @@ layout: default
 {% endfor %}
 <div class="pagination">
   {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path }}" class="previous">..</a>
+    <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="previous">..</a>
   {% else %}
     <span class="previous">|</span>
   {% endif %}
   <span class="page_number ">{{ paginator.page }}:{{ paginator.total_pages }}</span>
   {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path }}" class="next">/next</a>
+  <a href="{{ site.baseurl }}{{ paginator.next_page_path }}" class="next">/next</a>
   {% else %}
-    <span class="next "><a href="/">~</a> |</span>
+    <span class="next "><a href="{{ site.baseurl }}/">~</a> |</span>
   {% endif %}
 </div>
