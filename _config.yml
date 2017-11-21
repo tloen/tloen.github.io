@@ -28,7 +28,7 @@ nav:
    href: "/ref"
 
  - name: "contact"
-   href: "mailto:ivantheterrible@1530to1584.gov"
+   href: "/mailto:ivantheterrible@1530to1584.gov"
 
 # Sass
 sass:
