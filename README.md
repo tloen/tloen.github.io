@@ -1,20 +1,21 @@
 # Kikofri
 
-Kikofri is a theme for Jekyll that's a fork of the [Kiko theme](https://github.
-com/gfjaru/Kiko).
-
-It came about because I like my themes like I like my music: ugly, old and
-barren. It's an assortment of hacks filtered through web-design choices from
-the turn of the millennium.
+Kikofri is a theme for Jekyll that's a fork of the [Kiko theme][1] It came
+about because I like my themes like I like my music: ugly, old and barren. It's
+an assortment of hacks filtered through web-design choices from the turn of the
+millennium.
 
 The theme doesn't use any Google Analytics spyware by default. If you
-necessarily need stuff like that consider using [piwik](https://github.com/piwi
-k/piwik) instead. Kikofri doesn't rely on Google Fonts API for font rendering 
-and the like. Some metadata for search engines is provided by [jekyll-seo-tag](
-https://github.com/jekyll/jekyll-seo-tag).
+necessarily need stuff like that consider using [piwik][2] instead. Kikofri
+doesn't rely on Google Fonts API for font rendering and the like. Some metadata
+for search engines is provided by [jekyll-seo-tag][3].
 
 You'll see it undead here: 
 [https://kxxvii.github.io/Kikofri/](https://kxxvii.github.io/Kikofri/)
+
+[1]: https://github.com/gfjaru/Kiko
+[2]: https://github.com/piwik/piwik
+[3]: https://github.com/jekyll/jekyll-seo-tag
 
 ## To do:
 
@@ -75,18 +76,19 @@ _there is_ room for improvement even though I always intend to keep my fork
 * Contributions are appreciated. 
 * Check out the [To do](#to-do). Been like that forever, but it still applies.
 * Rule-of-thumb:
- - Additions are not discouraged, but
- - Subtractions are preferred,
-  - that is keep it [KISS](https://en.wiktionary.org/wiki/KISS_principle):y.
- - These are "rules" in the broadest sense of the word, _they're not laws_.
-  - See [Make it a little less ugly](#make-it-a-little-less-ugly) 4.
+  - Additions are not discouraged, but
+  - Subtractions are preferred,
+    - that is keep it [KISS](https://en.wiktionary.org/wiki/KISS_principle):y.
+  - These are "rules" in the broadest sense of the word, _they're not laws_.
+    - See [Make it a little less ugly](#make-it-a-little-less-ugly) 4.
 * This is a lesser point connected to the one above: _keep it ugly_.
 
 This last comment is a preference of mine: when possible keep line length to 79
-characters per line. Like the recommendations for [Python Code](http://pep8.org
-/#maximum-line-length). With that said, I know that a lot of stuff in this repo
+characters per line. Like the recommendations for [Python Code](). With that said, I know that a lot of stuff in this repo
 doesn't, but it makes for easier reading. So when I update stuff I'll reformat
 things as I go along.
+
+[4]: http://pep8.org/#maximum-line-length
 
 ## License
 
@@ -95,9 +97,9 @@ The Kikofri theme by [kxxvii](https://github.com/kxxvii) is released under the
 theme by [@gfjaru](https://github.com/gfjaru) is released under the [MIT 
 License](https://opensource.org/licenses/MIT). 
 
-The Ubuntu Font Family is distributed under the [Ubuntu Font License](http://fo
-nt.ubuntu.com/licence/).
+The Ubuntu Font Family is distributed under the [Ubuntu Font License][5].
 
+[5]: http://font.ubuntu.com/licence/
 
 ```
    Copyright 2017 kxxvii
