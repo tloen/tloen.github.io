@@ -1,16 +1,42 @@
----
 # # # # # # # # # #
 #  K i k o f r i  #
 # # # # # # # # # #
 
-# Basic
+# # # # #
+# Used as meta-data for 'head.html' among 
+# other things.
+#
+# Basic, either your jekyll site's name or
+# an organization.
 name: "K i k o f r i"
 description: "dirty and malnourished jekyll theme"
+
+# This should be a person of some sort.
 author: "kxxvii"
 
-# URL
+# Would make sense to use the 'name:' above
+# here. This is an alternative title.
+title: "Kikofri - Live Undead (1988, Moscow)"
+
+# 'en_US' is the default language. Enter a
+# new default language here. Making 'en_US'
+# an alternative language. See 'head.html'
+lang:
+
+# Default post and page image if it's those
+# are unspecified.
+image: /assets/images/kikofrieye.png
+
+# I just set this to whatever the above
+# image value is.
+# Could be some other image though.
+logo:
+#
+# # # # #
+
+# URL-stuff, don't forget the 'http...'-part
 url: "https://github.com/kxxvii/Kikofri"
-#baseurl: ""
+baseurl: ""
 permalink: /:year/:month/:day/:title.html
 
 # Markdown
@@ -24,36 +50,8 @@ nav:
  - name: "tags"
    href: "/tags"
 
- - name: "references"
-   href: "/ref"
+ - name: "feed"
+   href: "/feed.xml"
 
  - name: "contact"
    href: "/mailto:ivantheterrible@1530to1584.gov"
-
-# Sass
-sass:
- style: :compressed
-
-# Excerpt
-excerpt_separator: <!-ex->
-
-#Gems
-gems: [jekyll-paginate, jekyll-seo-tag]
-paginate: 10
-paginate_path: "/page:num/"
-
-# Scopes
-defaults:
- -
-  scope:
-   path: ""
-   type: "pages"
-  values:
-   layout: "page"
- -
-  scope:
-   path: ""
-   type: "posts"
-  values:
-   layout: "post"
----

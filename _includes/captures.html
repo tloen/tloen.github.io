@@ -1,0 +1,93 @@
+
+
+{%- comment -%}
+    {% raw %} 
+
+    Try to find reasonable data for the meta
+    properties, and json.
+
+    This file is strictly related to the other
+    include: 'head.html'. Must be kept in mind
+    when editing this file.
+
+    If you dislike it I'd just set the title
+    manually and delete everything from the:
+    '{% include captures.html %'}-part all
+    the way down to '</head>'.
+
+    Most of these variables have rather 
+    self-evident names. I'll leave most as is.
+
+    {% endraw %} 
+{%- endcomment -%}
+
+
+{%- if page.description -%}
+    {% capture descript %}
+        {{- page.description -}} 
+    {% endcapture %}
+{%- else %}
+    {% capture descript %}
+        {{- site.description -}} 
+    {% endcapture %}
+{%- endif -%}
+
+{% if page.title -%}
+    {% capture title %}
+        {{- page.title -}} 
+    {% endcapture %}
+{% else %}
+        {% assign title = site.title -%} 
+{% endif -%}
+
+
+{% comment %}
+    Since structured data/schema.org require
+    that "image/logo"-entries have values 
+    Kikofri assigns the plain site url as
+    this value as a last resort.
+{% endcomment %}
+
+{%- capture img -%}
+    {% if page.image %}
+        {{ page.image }} 
+    {% elsif site.image %}
+        {{ site.url }}{{ site.image }} 
+    {% else %}
+        {{ site.url }} 
+    {% endif -%}
+{% endcapture -%}
+
+{%- capture log -%}
+    {%- if site.logo %}
+        {{ site.url }}{{ site.logo }}
+    {% elsif site.image %}
+        {{ site.url }}{{ site.image }} 
+    {% else %}
+        {{ site.url }} 
+    {% endif -%}
+{%- endcapture -%}
+
+
+{%- capture auth -%}
+    {% if site.author -%}
+        {{ site.author }}
+    {% else %}
+        {{ site.name }}
+    {%- endif %}
+{% endcapture -%}
+
+{%- capture dat -%}
+    {% if page.date -%}
+        {{ page.date | date_to_xmlschema }}
+    {% else %}
+        {% comment %}
+            Unless you want to date 'index.html' and
+            the like, this produces the date of a 
+            given year. A reasonable estimate.
+
+            Mainly for the 'schema.org'-purposes.
+        {% endcomment %}
+        {{ site.time | truncate: 4, "" }}
+    {%- endif -%}
+{%- endcapture -%}

@@ -1,0 +1,18 @@
+    <footer>
+        {%- comment -%}
+            If '/' to '/archive', else do not. 
+        {%- endcomment -%}
+
+        {%- if page.url == "/" -%}
+            {%- assign url_butt = '/archive' -%}
+            {%- assign text = ' ~/archive ' -%}
+        {%- else -%}
+            {%- assign url_butt = '/' -%}
+            {%- assign text = ' ~/start ' -%}
+        {%- endif -%}
+        <div class="footer">
+            |<a href="{{ site.url }}{{ url_butt }}">{{ text }}</a>|
+        </div> 
+    </footer>
+</body>
+</html>

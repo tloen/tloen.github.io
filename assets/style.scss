@@ -1,0 +1,381 @@
+---
+---
+
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+
+html {
+  	font-family: 'Linux Libertine, Bitstream Vera Sans, sans-serif';
+  	font-size: 1.12rem;
+  	font-weight: normal;
+  	line-height: 1.35;
+  	letter-spacing: 1px;
+}
+
+body {
+  	color: #0d0d0d;
+  	background-color: #ffffff;
+  	-webkit-text-size-adjust: 100%;
+      	-ms-text-size-adjust: 100%;
+}
+
+.container {
+  	max-width: 580px;
+  	margin: auto;
+    text-align: center;
+}
+
+.container_post {
+  	max-width: 650px;
+  	margin: auto;
+}
+
+a {
+  	color: #800000;
+  	text-decoration: none;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+  }
+}
+
+b {
+ 	font-weight: normal;
+ 	background-color: #f2f2f2;
+ 	padding: 0 0.2rem 0.1rem 0.3rem;
+ 	border: solid 1px #800000;
+ 	color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  	margin-top: 0;
+  	margin-bottom: .4rem;
+    margin: 1.2rem 0 0.5rem 0;
+  	font-weight: 500;
+  	line-height: 1;
+  	color: #912222;
+  	letter-spacing: -.025rem;
+  	text-transform: capitalize;
+}
+
+h1 {
+  	font-size: 2rem;
+    margin-bottom: 0;
+}
+
+{%- comment -%}
+    Probably wouldn't 'h2' use this for
+    actual posts. Huge in-post headers
+    just don't look right.
+{%- endcomment -%}
+
+/* Index-page titles */
+h2 {
+  	font-size: 1.45rem;
+    font-weight: 400;
+    margin: 1.75rem 0 0;
+}
+
+/* In-post main heading */
+h3 {
+  	font-size: 1.5rem;
+  	text-decoration: underline;
+  	margin: 10px 0 5px 0;
+}
+
+/* In-post sub-heading */
+h4 {
+  	font-size: 1.25rem;
+  	font-weight: 300;
+}
+
+h5  {
+  	font-size: 1.15em;
+}
+
+h6 {
+  	font-size: 1.05rem;
+  	font-weight: 300;
+}
+
+p {
+  	margin: 0 0 1rem;
+}
+
+dt {
+  	font-weight: bold;
+}
+
+dd {
+  	margin-bottom: .5rem;
+}
+
+
+/* START 'ul' */
+ul, li {
+  	list-style: square;
+    	padding-left: 0.3rem;
+    	margin: .25rem 0 .25rem .25rem;
+  li, ul, ol {
+    	list-style: inherit;
+    	font-size: 0.9rem;
+  }
+  li:last-child {
+	  margin-bottom: 1rem;
+  }
+
+}
+
+/* END 'ul' */
+
+
+/* START 'ol' */
+ol {
+	list-style: decimal;
+	padding-left: 0.3rem;
+	margin: .25rem 0 .25rem .25rem;
+
+  li, ul, ol {
+    	list-style: inherit;
+    	font-size: 0.9rem;
+  }
+  li:last-child {
+	margin-bottom: 1rem;
+  }
+}
+
+/* END 'ol' */
+
+li:last-child {
+  margin-bottom: .5rem;
+}
+
+p + h1,
+p + h2,
+p + h3,
+ul + h1,
+ul + h2,
+ul + h3,
+ol + h1,
+ol + h2,
+ol + h3 {
+  	margin-top: 1.5rem;
+}
+
+hr {
+  	border: 0;
+    border-top:.5px solid #808080;
+  	margin: 1.5rem auto;
+}
+
+strong {
+  	color: inherit;
+  	font-weight: 600;
+}
+
+blockquote {
+  	padding: 0 0 0 1.5rem;
+  	margin: 0 2rem 1rem 0;
+  	color: #4d4d4d;
+  	border-left: .5rem solid #e5e5e5;
+
+  p:last-child {
+    	margin-bottom: 0;
+  }
+}
+
+pre, code {
+    background-color:#eeeeee;
+    font-size: 0.8rem;
+    font-family:'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace;
+    overflow: auto;
+    text-transform: none;
+}
+pre {
+    padding: 1rem 0.2rem;
+}
+
+/* Formatting of the post description.
+ */
+p.desc {
+  	font-size: 0.8rem;
+    margin-top: 0.6rem;
+    margin-bottom: 1.6rem;
+    text-align: justify;
+}
+
+img {
+  	display: block;
+  	max-width: 100%;
+  	margin: 1rem auto 1rem auto;
+  	border-radius: 2px;
+}
+
+table {
+  	margin-bottom: 1rem;
+  	width: 100%;
+  	border: 1px solid #e5e5e5;
+  	border-collapse: collapse;
+}
+
+td,th {
+  	padding: .25rem .5rem;
+  	border: 1px solid #e5e5e5;
+}
+
+time {
+    font-family: monospace;
+    font-size: 0.8rem;
+    text-decoration: overline;
+}
+hr {
+    border:0;
+    border-bottom: .5px solid #808080;
+    margin-bottom: 2.5rem;
+}
+
+/* START 'header' */
+.header {
+
+  &-title {
+    	font-weight: 400;
+
+    a {
+      	color: #660000;
+
+      &:hover,
+      &:focus {
+        	text-decoration: none;
+      }
+    }
+
+    span {
+      	color: #ddd;
+    }
+
+  }
+
+  &-title--small {
+    	
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: underline;                              
+
+    a {
+      	color: #660000;
+
+      &:hover,
+      &:focus {
+        	text-decoration: none;
+      }
+    }
+  }
+
+  .header-nav {
+    	margin-bottom: 1.2rem;
+
+    a {
+      	color: #808080;
+      	font-weight: 300;
+      	text-transform: lowercase;
+      	-webkit-transition: all .2s ease;
+         	-moz-transition: all .2s ease;
+              	transition: all .2s ease;
+
+      &:hover,
+      &:focus {
+        	color: #333;
+        	text-decoration: overline;
+      }
+
+      + a {
+        	margin-left: .25rem;
+    }
+  }
+}
+}
+/* END 'header' */
+
+
+.tooltip {
+  &:hover .tooltiptext {
+    	visibility: visible;
+}
+    	position: relative;
+    	display: inline;
+    	letter-spacing: 1px;
+    	text-decoration: dotted underline;
+    	font-size: 100%;
+}
+
+.tooltiptext {
+    	visibility: hidden;
+    	min-width: 200px;
+    	max-width: 3rem;
+    	background-color: #f2f2f2;
+    	color: #4d4d4d;
+    	text-align: center;
+    	line-height: 1.1;
+    	font-size:  .85rem;
+    	border-radius: 2px;
+    	border: 1px solid #000000;
+    	padding: 2px 0px 2px;
+
+    /* Tooltip Position */
+    	position: absolute;
+    	z-index: 1;
+    	top: 120%;
+    	left: 50%;
+    	margin-left: -100px;
+}
+
+.footer {
+ 	font-size: 20px;
+ 	font-weight: bold;
+ 	text-align: center;
+ 	padding: 0 0 10px 0;
+ 	margin: auto;
+ }
+
+@media only screen and (max-width: 570px) {
+
+    li {
+        margin: auto;
+        text-align: center;
+        padding: 0 5px 0 0;
+    }
+    a {
+        text-decoration: none;
+    }
+    p.desc {
+        text-align: center;
+    }
+    time {
+        display: none;
+    }
+}
+
+{% comment %}
+/* There used to be syntax highlighting stuff here.
+   I decided to deem to as "too pretty" so I threw
+   it out.
+
+   If you like stuff like that you might want to
+   remove the spaces and '!µµ!' and use this:
+
+   https://web.archive.org/web/20190307122428/http!µµ!
+   s://gist.githubusercontent.com/demisx/025698a7b!µµ!
+   5e314a7a4b5/raw/d2086c7f59105db4da1ed8d1df8d858!µµ!
+   6666f66ea/syntax.css
+
+   Or search for it on duckduckgo or something. Sorry
+   for the mangled URL. I just don't like long lines.
+   "Too pretty".
+*/
+{% endcomment %}

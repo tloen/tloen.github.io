@@ -1,16 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.name }}{% endif %}</title>
-  <link href="{{ site.baseurl }}/fonts.css" rel="stylesheet" charset="utf-8">
-  <link rel="stylesheet" href="{{ site.baseurl }}/style.css">
-  {% seo %}
-  </head>
-<body>
-  <div class="container">
-    {{ content }}
-  </div>
-</body>
-</html>
+
+{%- comment -%}
+    Determines the visibility of 'pagnum' posts in the
+    'index.html' post list.
+{%- endcomment -%}
+
+{%- assign pagnum = 10 -%}
+
+
+{%- include head.html -%}
+
+<div class="container">
+
+    {%- if site.posts.size == 0 -%}
+        <h2>No post found</h2>
+    {% endif %}
+
+    {% comment %}
+        'pagin == false': index.html
+    {% endcomment %}
+    {% if page.pagin == false %}
+
+        <header class="header">
+            <h1 class="header-title">
+                <a href="{{ site.baseurl }}/">{{ site.name }}</a>
+            </h1>
+            <nav class="header-nav">
+                {% for nav in site.nav %}
+                <a href="{{ site.baseurl }}{{ nav.href }}">{{ nav.name }}</a>
+                {% endfor %}
+            </nav>
+        </header>
+
+    {% endif %}
+
+    {% comment %}
+        If true: 'archive', else 'index' 
+    {% endcomment %}
+    {%- if page.pagin -%}
+
+        {%- include top_small.html -%}
+        {%- include arch_css.html -%}
+
+        {%- for post in site.posts offset: pagnum %}
+            {% include loop.html %}
+        {%- endfor -%}
+
+    {%- else -%}
+
+        {%- for post in site.posts limit: pagnum -%}
+            {%- include loop.html -%}
+        {%- endfor -%}
+
+    {%- endif -%}
+</div>
+
+{%- include foot.html -%}
