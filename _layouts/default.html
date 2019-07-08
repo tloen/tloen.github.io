@@ -1,12 +1,5 @@
 
-{%- comment -%}
-    Determines the visibility of 'pagnum' posts in the
-    'index.html' post list.
-{%- endcomment -%}
-
 {%- assign pagnum = 10 -%}
-
-
 {%- include head.html -%}
 
 <div class="container">
@@ -22,11 +15,11 @@
 
         <header class="header">
             <h1 class="header-title">
-                <a href="{{ site.baseurl }}/">{{ site.name }}</a>
+                <a href="{{ site.url }}/">{{ site.name }}</a>
             </h1>
             <nav class="header-nav">
                 {% for nav in site.nav %}
-                <a href="{{ site.baseurl }}{{ nav.href }}">{{ nav.name }}</a>
+                <a href="{{ site.url }}{{ nav.href }}">{{ nav.name }}</a>
                 {% endfor %}
             </nav>
         </header>

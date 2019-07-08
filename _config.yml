@@ -35,8 +35,8 @@ logo:
 # # # # #
 
 # URL-stuff, don't forget the 'http...'-part
-url: "https://github.com/kxxvii/Kikofri"
-baseurl: ""
+url: "https://your.own.url.net"
+#baseurl: ""
 permalink: /:year/:month/:day/:title.html
 
 # Markdown

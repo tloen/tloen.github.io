@@ -18,6 +18,8 @@
     {% endif %}
 {% endcapture %}
 
+{%- comment -%} Det här är min grej, inte del av Kikofro {%- endcomment -%}
+{%- unless post.hidden %}
 <li style="list-style-type: none">
     {%- if page.title == "Archive" -%}
         {%- assign len = 67 %}
@@ -28,14 +30,14 @@
             {%- increment num -%}
         {%- endcapture %}
     
-        <a href="{{ site.baseurl }}{{ post.url }}" id="{{ id }}"
+        <a href="{{ site.url }}{{ post.url }}" id="{{ id }}"
             title="Post: '{{ id }}'">{{ post.title | truncate: 32}}</a>
     
     {%- else -%}
         {%- assign len = 150 %}
     
         <h2>
-            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+            <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
         </h2>
         <time>{{ post.date | date_to_string }}</time>
     
@@ -49,3 +51,4 @@
         {{- works | truncate: len | strip }}
         </p>
 </li>
+{% endunless -%}
