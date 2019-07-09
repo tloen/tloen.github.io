@@ -46,7 +46,7 @@ of things — in `about.md`.
 3. Navigate to the `_posts` directory and remove the example content by writing
    `rm *` in your terminal window. (Make sure that you're in the right folder)
    Might want to do the same under `assets/images`.
-   - While you're at it create a post under `_posts/READ-DA-TE.md` with some
+   - While you're at it create a post under `_posts/REAL-DA-TE.md` with some
      front matter similar to this:
    ```
    title:       "Friends Don't Lie."
