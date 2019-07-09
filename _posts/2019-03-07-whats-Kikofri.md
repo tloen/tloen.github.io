@@ -20,37 +20,41 @@ p.pic {
 }
 </style>
 
-![Kikofrieye. Used as default favicon. CC0.](/assets/images/kikofrieye.png)
+![Kikofrieye. Used as default favicon. CC0.]({{ site.url }}/assets/images/kikof
+rieye.png)
 <p class="pic">Pictured: <em>'Ofri Eyeparchment'</em>. Default
 favicon/spokesperson.  (CC0/Public Domain).</p> 
 
 
-**Kikofri** is a theme for Jekyll that's a fork of the [Kiko theme][1]. Today I'd
-say Kikofri is Kiko mangled beyond recognition. It came about because I like my
-themes like I like my music: ugly, old and barren. It's an assortment of hacks
-filtered through web-design choices from the turn of the millennium.
+**Kikofri** is a theme for `jekyll` that started out as a fork of the [Kiko
+theme][1]. Today I'd say Kikofri is Kiko mangled beyond recognition. It came
+about because I like my themes like I like my music: ugly, old and barren. It's
+an assortment of hacks filtered through web-design choices from the turn of the
+millennium.
 
-The theme doesn't use any Google Analytics spyware by default, and it doesn't rely on
+The theme doesn't use any Google Analytics spyware, and it doesn't rely on
 Google Fonts API for font rendering and the like. Since I never particularly
 liked '[jekyll-seo-tag][2]' there's second-rate implementation of it under
 `\_includes/head.html`. Pure `liquid`. Configure it to your liking. The _absence_
-of "...battle-tested" templates filled with hype-words guaranteed.
+of "...battle-tested" templates infused with hype-words is guaranteed.
 
 [1]: https://github.com/gfjaru/Kiko
 [2]: https://github.com/jekyll/jekyll-seo-tag
 
+Skip to [the details](#gistofit).
 
 ### Quirks Mode: [](){:id="micros"}
 
-Kikofri comes with a few _quirks_. Since I'm an old person in a young body my
+Kikofri comes with a few _quirks_. Since I'm an old person in an young body my
 sense of humor is dry. Therefore I decided to call the quirky [macro][4]-like
-thingies 'micros', and thus we use to **`µ`** symbols to use them. (Honestly
-they're just liquid filters). They can be found at '[\_layouts/post.html][5]'.
+thingies 'micros', and thus we use the **`µ`** symbol to make the most of them.
+(Honestly they're just liquid filters). Take a look at
+'[\_layouts/post.html][5]' if you wonder how they are implemented. 
 
-These are:
+The sequences are:
 
 * **micro-hash**:  
-    Produces "Wikipedia-style" reference links:
+    Produces "Wikipedia-Style" reference links:
     - "micro-hash" equals 'left bracket' ( **`µ#`** = '**`<sup>[`**' ),
     - "hash-micro" equals 'right bracket' ( **`#µ`** = '**`]</sup>`**' )
             
@@ -70,8 +74,9 @@ These are:
 **Example:** Here comes the stepmother of all demo(n)sµ#[a][reflink]#µ. I
 really need to put µ;;emphasis;;µ on the next paragraph.
 
-µµ A paragraph like all others, but this one is mine and it is too long because I
-need to put enough letters in here to make sense of indenting it.
+µµ A paragraph like all others, but this one is mine. It is also a little too
+long because I need to put enough letters here to justify this indented poorly
+worded paragraph.
 {% endcapture %}
 
 {{ motherdemon | replace: 'µ#', '<sup>[' | replace: '#µ', ']</sup>'
@@ -104,16 +109,16 @@ That's what killed Superman.<style>a.d{color: #fff;font-weight:bold;}a.d:hover
 ### Other notes: ###
 
 I've at least _tried_ to take a modular approach. That is to break up the theme
-is smaller, more or less  self-contained parts, in the form of 'includes' where
-applicable.
+into smaller, more or less  self-contained parts, in the form of 'includes'
+where applicable.
 
-There are also a configurable front matter value '`pagin`' which serve as a
+There is also a configurable front matter value '`pagin`' which serves as a
 switch for this theme's "pagination"/archive feature. The variable '`pagnum`'
 can be found under `_default.html`. It decides the number of entries at
 `index.html` and the offset in the archive. (Default: 10).
 
 The [archive](/archive) is just a neat list of posts. Since few will write
-3048+, it'll do. It's plain HTML/CSS, won't spend a lot of bandwidth.
+3048+ articles, it'll do. Plain HTML/CSS.
 
 ### Some Poetry: ###
 
@@ -127,10 +132,11 @@ They are stupid unlikely sequences of symbols to create some neat stuff. While
 still sticking to the goal of being ugly and a _"dirty and malnourished jekyll
 theme"_ of course.
 
-Since I eschew the "blog"-aspect of it all is also reflected in the meta-data
-where Kikofri uses the 'Article' type instead of the 'BlogPosting' type.
+Since I eschew the "blog"-aspect of it all Kikofri uses the 'Article' type
+instead of the 'BlogPosting' type [in it's meta-data][9].
 
 [8]: https://metroid.fandom.com/wiki/Alpha_Blogg
+[9]: https://github.com/kxxvii/Kikofri/blob/master/_includes/head.html
 
 ### What It All Boils Down To: ###
 
@@ -141,13 +147,13 @@ The thing is: a lot of the things people might want to say, write or show won't
 really require all that much. Even if it does it's rarely as much as the first
 5 search engine results makes you think.
 
-Kikofri tries to keep it simple, being partly flawed by design. Looking the way
-it wants instead of following trends and it strives to be reasonably easy to
-modify. Tweaking is learning.
+Kikofri tries to keep it simple, being partly flawed by design, but hopefully
+not too flawed. It looks the way it wants instead of following trends and it
+strives to be reasonably easy to modify. Tweaking is learning.
 
-Well, of course you can't turn the world upside down with a theme, but worrying
-about your "content", "workflow" and striving to be a automaton spewing out
-mere fluff, i.e. "content", is useless.
+Well, of course... You can't turn the world upside down with a theme, but
+worrying about your "content", "workflow" and striving to be an automaton
+spewing out mere fluff, i.e. "content", is useless.
 
 [_Don't call it "content"_][works]. It diminishes your work. It makes you a
 commodity and what you create some kind of placeholder waiting to be replaced.
@@ -162,10 +168,10 @@ proper noun if you want to):
 > that to enslave a man is to kill him. Why, then, to this other question: WHAT
 > IS PROPERTY! may I not likewise answer, IT IS THEFT...
 
-[prod]: /2016/07/16/example-post_01.html#property-is-theft---
+[prod]: /2016/07/16/example-post.html#theft
 
 
-### Other Important information...
+### Other Important information... [](){:id="gistofit"}
 
 ...usually resides [**HERE**](https://github.com/kxxvii/Kikofri/tree/master),
 there are comments in the source files too, but a few clarifications would be
@@ -179,8 +185,9 @@ in order:
 * `top_small.html`: Includes `site.name`, or something else if you'd like, at
   the top of pages. Also makes it easy to exclude from a given page.
 * `foot.html`: Footer. Closes "open tags" in `head.html`.
-* `head.html`: Apart from being `<head>` it contains meta-data. A lot of if can
-  be modified in this file. But entries like:
+* `head.html`: Apart from being `<head>` it contains meta-data. Some of it can
+  be modified in this file, but see `captures.html` for more variables. Entries
+  like:
     
 {% raw %}
 ```
@@ -190,7 +197,7 @@ in order:
 {% endraw %}
 
 Can be set in `_config.yml` for example.
-* `captures.html` Contain most of the meta-data variables for `head.html`. You
+* `captures.html` Contains most of the meta-data variables for `head.html`. You
   can use these or set value values by hand.
 
 #### `_layouts`
@@ -199,7 +206,7 @@ Can be set in `_config.yml` for example.
 * `pages.html`: For separate pages like `about.md`. Also included in:
 * `post.html`: A post-specific layout. Useful if you want to make further
   changes to posts and pages separately.
-* `pages`/`post` also  contain the [`micros`](#micros) markup.
+* `pages`/`post` also  contains the [`micros`](#micros) markup.
 
 #### `assets` directory
 
@@ -211,9 +218,9 @@ cluttered.
   - `pagin` is also found in `index.html`, it's basically just for telling
     jekyll when to produce a paginated(ish) page. If true: `offset=pagnum`, if
     false: `limit=pagnum`.
-  - It's inconceivable that one could `pagin`/`pagnum` to produce a second
+  - It's conceivable that one could use `pagin`/`pagnum` to produce a second
     archive page for example.
 
 * `tags.md` contains a bunch in inline `CSS`. The file itself produces the tags
-  page. Since any "day-to-day"-editing seem unlikely — it's automated — it
-  might as well stay there.
+  page. Since any "day-to-day"-editing of it seem unlikely — it's automated —
+  it might as well stay there.
