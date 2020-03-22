@@ -5,10 +5,10 @@
 
         {%- if page.url == "/" -%}
             {%- assign url_butt = '/archive' -%}
-            {%- assign text = ' ~/archive ' -%}
+            {%- assign text = ' archive ' -%}
         {%- else -%}
             {%- assign url_butt = '/' -%}
-            {%- assign text = ' ~/start ' -%}
+            {%- assign text = ' home ' -%}
         {%- endif -%}
         <div class="footer">
             |<a href="{{ site.url }}{{ url_butt }}">{{ text }}</a>|

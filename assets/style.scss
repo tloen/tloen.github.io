@@ -9,11 +9,11 @@
 
 
 html {
-  	font-family: 'Linux Libertine, Bitstream Vera Sans, sans-serif';
+  	font-family: Charter, Helvetica, Arial, sans-serif;
   	font-size: 1.12rem;
   	font-weight: normal;
   	line-height: 1.35;
-  	letter-spacing: 1px;
+  	letter-spacing: 0.3px;
 }
 
 body {
@@ -26,7 +26,6 @@ body {
 .container {
   	max-width: 580px;
   	margin: auto;
-    text-align: center;
 }
 
 .container_post {
@@ -55,7 +54,7 @@ h1, h2, h3, h4, h5, h6 {
   	margin-top: 0;
   	margin-bottom: .4rem;
     margin: 1.2rem 0 0.5rem 0;
-  	font-weight: 500;
+  	font-weight: 1000;
   	line-height: 1;
   	color: #912222;
   	letter-spacing: -.025rem;
@@ -118,8 +117,6 @@ dd {
 /* START 'ul' */
 ul, li {
   	list-style: square;
-    	padding-left: 0.3rem;
-    	margin: .25rem 0 .25rem .25rem;
   li, ul, ol {
     	list-style: inherit;
     	font-size: 0.9rem;
@@ -347,14 +344,13 @@ hr {
 
     li {
         margin: auto;
-        text-align: center;
-        padding: 0 5px 0 0;
+				text-align: left;
     }
     a {
         text-decoration: none;
     }
     p.desc {
-        text-align: center;
+        text-align: left;
     }
     time {
         display: none;
