@@ -8,15 +8,15 @@
 #
 # Basic, either your jekyll site's name or
 # an organization.
-name: "Eric J. Wang"
-description: "dirty and malnourished jekyll theme"
+name: "E. J. Wang"
+description: "Personal site of Eric J. Wang."
 
 # This should be a person of some sort.
 author: "eric"
 
 # Would make sense to use the 'name:' above
 # here. This is an alternative title.
-title: "Eric James Wang"
+title: "eric@"
 
 # 'en_US' is the default language. Enter a
 # new default language here. Making 'en_US'
@@ -44,14 +44,5 @@ markdown: kramdown
 
 # Navigation
 nav:
-  - name: "about"
+  - name: "about/contact"
     href: "/about"
-
-  - name: "tags"
-    href: "/tags"
-
-  - name: "feed"
-    href: "/feed.xml"
-
-  - name: "contact"
-    href: "/mailto:ivantheterrible@1530to1584.gov"

@@ -1,35 +1,26 @@
 ---
 title: About...
 permalink: /about
-description: "This is where I say something about myself or whatever I
-happen to work on."
 layout: pages
 ---
 
-{% comment %}
-    You should probably delete everything here and write
-    something for yourself.
-{% endcomment %}  
+My interests include:
 
+- Technological progress
+- Philosophies of history and politics
+- Scale and the limits of growth
+- Machine learning, supervised or otherwise
 
-_This is a simple introduction of [insert something here]_.
+Generally speaking, I am an infrequent writer.
+Most public writing is vain, misguided, or both.
+I do not pretend mine is an exception.
 
-## ..myself #
+I study math, computer science, and old books at Stanford.
 
-Hello there. How I’ve waited for you to come, Ive been here all alone. 
-Now that you've arrived. Please stay a while. And I promise I won't keep you 
-long. <style>a{color: #FFF;}a:hover{color: #f0f0f0;}.footer a{color: #800000;}
-</style> [_I'll keep you forever..._](https://www.youtube.com/watch?v=fGZsO4ZO2
-OE)
+I've previously worked at Google, Palantir, and a few startups.
+I'm currently working on something good.
 
-## ...my writing #
+You can find my Goodreads [here](https://www.goodreads.com/ecjwg)
+and my Twitter [here](https://twitter.com/ecjwg).
 
-I write all this because I like to chant, rant and sometimes say things that I
-probably shan't.
-
-## ...this theme #
-
-Shredded! Simply stated in three words: ugly, old and barren.
-<a href="https://github.com/kxxvii/Kikofri" style="color: #800000;">
-Kikofri@github</a>.
-
+My email is `[my first name]@ericjwang.com`. Do reach out.
