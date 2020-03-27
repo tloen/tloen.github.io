@@ -35,7 +35,7 @@ logo:
 # # # # #
 
 # URL-stuff, don't forget the 'http...'-part
-url: "https://your.own.url.net"
+url: "https://tloen.github.io"
 #baseurl: ""
 permalink: /:year/:month/:day/:title.html
 
