@@ -35,7 +35,7 @@ logo:
 # # # # #
 
 # URL-stuff, don't forget the 'http...'-part
-url: "http://www.ericjwang.com"
+url: "https://www.ericjwang.com"
 #baseurl: ""
 permalink: /:year/:month/:day/:title.html
 
