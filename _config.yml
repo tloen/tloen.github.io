@@ -46,3 +46,5 @@ markdown: kramdown
 nav:
   - name: "about/contact"
     href: "/about"
+
+remote_theme: "kxxvii/Kikofri"
