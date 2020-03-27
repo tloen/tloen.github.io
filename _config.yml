@@ -35,7 +35,7 @@ logo:
 # # # # #
 
 # URL-stuff, don't forget the 'http...'-part
-url: "https://tloen.github.io"
+url: "http://www.ericjwang.com"
 #baseurl: ""
 permalink: /:year/:month/:day/:title.html
 
@@ -46,5 +46,3 @@ markdown: kramdown
 nav:
   - name: "about/contact"
     href: "/about"
-
-remote_theme: "kxxvii/Kikofri"
