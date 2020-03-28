@@ -46,3 +46,6 @@ markdown: kramdown
 nav:
   - name: "about/contact"
     href: "/about"
+
+plugins:
+  - jekyll-seo-tag
