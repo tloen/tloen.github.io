@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6 {
   	margin-top: 0;
   	margin-bottom: .4rem;
     margin: 1.2rem 0 0.5rem 0;
-  	font-weight: 1000;
+  	font-weight: normal;
   	line-height: 1;
   	color: #912222;
   	letter-spacing: -.025rem;
@@ -82,8 +82,7 @@ h2 {
 /* In-post main heading */
 h3 {
   	font-size: 1.5rem;
-  	text-decoration: underline;
-  	margin: 10px 0 5px 0;
+  	margin: 10px 0 8px 0;
 }
 
 /* In-post sub-heading */
@@ -164,11 +163,13 @@ ol + h3 {
   	margin-top: 1.5rem;
 }
 
+/*
 hr {
   	border: 0;
     border-top:.5px solid #808080;
   	margin: 1.5rem auto;
 }
+*/
 
 strong {
   	color: inherit;
@@ -230,10 +231,11 @@ time {
     font-size: 0.8rem;
     text-decoration: overline;
 }
+
 hr {
-    border:0;
     border-bottom: .5px solid #808080;
-    margin-bottom: 2.5rem;
+		margin-bottom: 2.5rem;
+		margin-top: 2.5rem;
 }
 
 /* START 'header' */
