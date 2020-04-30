@@ -24,4 +24,5 @@ I'm currently working on something good.
 
 You can find my Goodreads [here](https://www.goodreads.com/ecjwg)
 and my Twitter [here](https://twitter.com/ecjwg).
-Do reach out to me at `[my first name]@ericjwang.com`.
+My email is `[my first name]@ericjwang.com`.
+Do reach out.
