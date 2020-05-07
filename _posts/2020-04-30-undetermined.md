@@ -18,7 +18,7 @@ layout: post
 >
 > —T.S. Eliot, _The Hollow Men_
 
-_The following is the second part of a three-part essay about how the mind moves from abstract contemplation to concrete action and the obstacles that it encounters. I would recommend that you begin with [the first party](/2020/04/25/startup.html) if you haven't read it yet._
+_The following is the second part of a three-part essay about how the mind moves from abstract contemplation to concrete action and the obstacles that it encounters. I would recommend that you begin with [the first part](/2020/04/25/startup.html) if you haven't read it yet._
 
 Why is it so hard for Stanford students to deal with opportunity cost? To answer this we need to ground ourselves in the concrete. Thus far, we have been discussing the Aspirant primarily in the language of abstract necessity. (_Suppose_ someone were to optimize for this goal — _then_ what?) But there are people who actually do optimize this goal, and through them it becomes clear what the very specific conditions are that give rise to it.
 
