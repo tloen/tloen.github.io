@@ -1,7 +1,7 @@
 ---
 title: "On the undetermined class"
 description: "Contemplation and action, part 2 of 3."
-image: "/assets/images/tracks.png"
+image: "/assets/images/egg.jpg"
 date: 2020-04-30
 layout: post
 ---
