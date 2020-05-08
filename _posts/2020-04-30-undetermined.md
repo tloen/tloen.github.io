@@ -1,6 +1,6 @@
 ---
 title: "On the undetermined class"
-description: "Contemplation and action, part 2 of 3."
+description: "The theory and practice of determination, part 2."
 image: "/assets/images/egg.jpg"
 date: 2020-04-30
 layout: post
@@ -17,8 +17,6 @@ layout: post
 > _Life is very long_
 >
 > —T.S. Eliot, _The Hollow Men_
-
-_The following is the second part of a three-part essay about how the mind moves from abstract contemplation to concrete action and the obstacles that it encounters. I would recommend that you begin with [the first part](/2020/04/25/startup.html) if you haven't read it yet._
 
 Why is it so hard for Stanford students to deal with opportunity cost? To answer this we need to ground ourselves in the concrete. Thus far, we have been discussing the Aspirant primarily in the language of abstract necessity. (_Suppose_ someone were to optimize for this goal — _then_ what?) But there are people who actually do optimize this goal, and through them it becomes clear what the very specific conditions are that give rise to it.
 
@@ -48,4 +46,6 @@ The existence of a large undetermined class is in some respects a useful thing. 
 
 But we also see the adverse effects. The four power centers of the US (NY, SF, DC, LA) swell into imperial strongholds independent of the rest of the country; other critical, less glamorous sectors of the economy fall by the wayside; deindustrialization, more than automation, wreaks havoc all across the hinterland. The undetermined class is the object of a deep resentment from the _determined_ classes — especially those determined into irrelevance by the closing of American factories. What have they gotten in return for this devastation? Between finance, tech, politics, and media, why has this expanding class produced so little?
 
-_Continued in [On the dicethrow](/2020/05/07/dicethrow.html)._
+Before we can answer these questions, we need to reach a final understanding about the nature of the undetermined class.
+
+_Continued in [On determination](/2020/05/07/determination.html)._
