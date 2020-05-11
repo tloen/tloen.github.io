@@ -48,4 +48,4 @@ But we also see the adverse effects. The four power centers of the US (NY, SF, D
 
 Before we can answer these questions, we need to reach a final understanding about the nature of the undetermined class.
 
-_[Continued.](/2020/05/07/determination.html)._
+_[Continued.](/2020/05/07/determination.html)_
