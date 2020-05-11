@@ -18,6 +18,8 @@ layout: post
 >
 > —T.S. Eliot, _The Hollow Men_
 
+_Continued from [part 1](/2020/04/25/startup.html)._
+
 Why is it so hard for Stanford students to deal with opportunity cost? To answer this we need to ground ourselves in the concrete. Thus far, we have been discussing the Aspirant primarily in the language of abstract necessity. (_Suppose_ someone were to optimize for this goal — _then_ what?) But there are people who actually do optimize this goal, and through them it becomes clear what the very specific conditions are that give rise to it.
 
 We have already posited that the Aspirant is probably male. Add to this that he is likely upper-middle-class, that he grew up in a comfortable suburb, and that he is either white or Asian. He attended an elite university; he spent much of his adolescence striving to get into this university, because he was raised under the understanding that it was the precondition for doing anything meaningful with his life.
