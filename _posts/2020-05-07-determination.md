@@ -57,4 +57,4 @@ We will sidestep the endless tangle of language games surrounding the question o
 
 It would be careless to say that determination and information are the same thing. Not all information is determination. But all determination is information, because the essence of determination is the resolution of uncertainty. So we may use the tools we developed earlier to reason about determination, and to make practical claims about how it may be acquired.
 
-_[Continued.](/2020/05/09/praxis.html)_
+_[Continued.](/2020/05/10/praxis.html)_
