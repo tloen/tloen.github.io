@@ -148,3 +148,5 @@ We will sidestep the endless tangle of language games surrounding the question o
 Determination, being the resolution of uncertainty, is a form of information. So we may use the tools of information theory to reason about determination, and to make practical claims about how it may be acquired.
 
 _[Continued.](/2020/05/10/praxis.html)_
+
+---
