@@ -6,6 +6,8 @@ date: 2020-05-07
 layout: post
 ---
 
+The following begins a multi-part essay about how the mind moves from abstract contemplation to concrete action and the obstacles that it encounters. I would recommend that you begin with [my post on theorizing human decision](/2020/03/31/entropy.html) if you haven't read it yet.
+
 ### 1a. Startup
 
 ![](/assets/images/tracks.png)
@@ -19,8 +21,6 @@ layout: post
 > _For Thine is the Kingdom_
 >
 > —T.S. Eliot, _The Hollow Men_
-
-_The following begins a multi-part essay about how the mind moves from abstract contemplation to concrete action and the obstacles that it encounters. I would recommend that you begin with [my post on theorizing human decision](/2020/03/31/entropy.html) if you haven't read it yet._
 
 Everyone in Silicon Valley knows that it is hardly any longer true that a geeky Stanford student can build a large and successful company with just JavaScript, linear algebra, and a vague but firm conviction that he is doing the right thing. But it is worth probing into why this is the case.
 
