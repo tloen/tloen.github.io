@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   	font-size: 2rem;
-    margin-bottom: 0;
+		margin-bottom: 0;
 }
 
 {%- comment -%}
@@ -76,7 +76,7 @@ h1 {
 h2 {
   	font-size: 1.45rem;
     font-weight: 400;
-    margin: 1.75rem 0 0;
+		margin: 1.75rem 0 0;
 }
 
 /* In-post main heading */
@@ -242,7 +242,8 @@ hr {
 .header {
 
   &-title {
-    	font-weight: 400;
+			font-weight: 400;
+			font-style: italic;
 
     a {
       	color: #660000;
