@@ -55,6 +55,6 @@ A free will is commonly understood as one whose decisions are not determined pri
 
 We will sidestep the endless tangle of language games surrounding the question of whether free will is compatible with determinism. By means of complexity theory I argued in [an earlier essay](/2020/03/31/entropy.html) that will, randomness, and computation are three components of information entropy.
 
-It would be careless to say that determination and information are the same thing. Not all information is determination. But all determination is information, because the essence of determination is the resolution of uncertainty. So we may use the tools we developed earlier to reason about determination, and to make practical claims about how it may be acquired.
+Determination, being the resolution of uncertainty, is a form of information. So we may use the tools of information theory to reason about determination, and to make practical claims about how it may be acquired.
 
 _[Continued.](/2020/05/10/praxis.html)_
