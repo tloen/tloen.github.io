@@ -10,10 +10,6 @@ My name's Eric James Wang.
 - I've previously worked at Google, Palantir, and a few startups.
 - I'm currently working on something good.
 
-On this website I write primarily for my friends.
-Most public writing is vain, misguided, or both;
-I do not pretend mine is an exception.
-
 You can find my Goodreads [here](https://www.goodreads.com/ecjwg)
 and my Twitter [here](https://twitter.com/ecjwg).
 My email is `[my first name]@ericjwang.com`.
