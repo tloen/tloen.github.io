@@ -7,13 +7,46 @@
             box-sizing: border-box;
 }
 
+@font-face {
+	font-family: Equity;
+	src: url('fonts/equity_ot_b_regular.woff2');
+}
+
+@font-face {
+	font-family: Equity;
+	src: url('fonts/equity_ot_b_bold_italic.woff2');
+	font-style: italic;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: Equity;
+	src: url('fonts/equity_ot_b_bold.woff2');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: Equity;
+	src: url('fonts/equity_ot_b_italic.woff2');
+	font-style: italic;
+}
+
+@font-face {
+	font-family: EquityCaps;
+	src: url('fonts/equity_b_caps_regular.woff2');
+}
+
+@font-face {
+	font-family: EquityCaps;
+	src: url('fonts/equity_b_caps_bold.woff2');
+	font-weight: bold;
+}
 
 html {
-  	font-family: Charter, Helvetica, Arial, sans-serif;
+  	font-family: Equity, Charter, Helvetica, Arial, sans-serif;
   	font-size: 1.12rem;
   	font-weight: normal;
   	line-height: 1.35;
-  	letter-spacing: 0.3px;
 }
 
 body {
@@ -29,12 +62,12 @@ body {
 }
 
 .container_post {
-  	max-width: 650px;
+  	max-width: 500px;
   	margin: auto;
 }
 
 a {
-  	color: #800000;
+  	color: #a30000;
   	text-decoration: none;
 
     &:hover, &:focus {
@@ -57,7 +90,6 @@ h1, h2, h3, h4, h5, h6 {
   	font-weight: normal;
   	line-height: 1;
   	color: #912222;
-  	letter-spacing: -.025rem;
   	/* text-transform: capitalize; */
 }
 
@@ -190,7 +222,7 @@ blockquote {
 pre, code {
     background-color:#eeeeee;
     font-size: 0.8rem;
-    font-family:'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace;
+    font-family: 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace;
     overflow: auto;
     text-transform: none;
 }
@@ -227,9 +259,10 @@ td,th {
 }
 
 time {
-    font-family: monospace;
+    font-family: EquityCaps, 'Libre Caslon Text', monospace;
     font-size: 0.8rem;
     text-decoration: overline;
+	margin-bottom: 40px;
 }
 
 hr {
@@ -279,6 +312,7 @@ hr {
 
   .header-nav {
     	margin-bottom: 1.2rem;
+		text-align: center;
 
     a {
       	color: #808080;
