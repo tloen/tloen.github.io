@@ -4,8 +4,6 @@ permalink: /about
 layout: pages
 ---
 
-<img src="/assets/images/selfie.png" width=200>
-
 I am a technologist living in San Francisco.
 On this site, I hope to collect fragments about a selection of my interests:
 
