@@ -14,7 +14,7 @@ On this site, I hope to collect fragments about a selection of my interests:
 - personal and organizational effectiveness
 - Chinese ethical and political philosophy
 
-Ultimately, my interest is in reality and how we come to relate to it practically; these are just my preferred means of pursuing it.
+Ultimately, my interest is in reality and how we come to relate to it practically; the above are simply my preferred means of pursuing it.
 My strongest intellectual influences are Samuel Johnson and Han Feizi.
 
 You can find me elsewhere:
