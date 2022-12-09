@@ -82,7 +82,7 @@ Without answering any of these questions, we can attempt to speak the Way (yes, 
     - If the problem is a lack of tranquility, one should take a deep breath and distance themselves from the situation, aiming to become tranquil.
 
 Granted, this entire argument has proceeded in relentlessly abstract terms, and at moments one wonders whether the whole thing is a pedantic exercise in analytic framework-building.
-But there's a basic practicality to the understanding that every failure is to a certain extent a failure to perceive, and I think I've traced a reasonable answer to the subsequent question of how to remove the barriers to perception.
+But there's a basic practicality to the understanding that every individual failure is essentially a failure to perceive, and I think I've traced a reasonable answer to the subsequent question of how to remove the barriers to perception.
 In moments of uncertainty, confusion, or avolition, we now have tools to prod more deeply into the nature of the problem, and begin more effectively to address it.
 
 Moreover, there's value in splitting the mind into separate faculties, and in recognizing — in the very passivity of the concept of "perception," as distinct from, say, "observation" — the intractability of deterministic algorithms for problem solving.
