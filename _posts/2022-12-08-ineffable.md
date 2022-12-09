@@ -54,10 +54,10 @@ Thus right action demands two things —
 - **Understanding**:
   - so that one may be more _creative_ in devising courses of action, by means of synthesizing previous analogues;
   - so that one may apply _the reality principle_ more effectively, by understanding well the shape of the world and the constraints it imposes;
-  - and so that one may be more _causally accurate_ in imagining the consequences of actions, by understanding the causal structure of the world;
+  - and so that one may be more _causally accurate_ in imagining the consequences of actions, by understanding the causal structure of the world.
 - **Tranquility**:
-  - so that one may be more _creative_ in devising courses of action, by not being attached to a particular course of action out of fear or conservatism.
-  - so that one may be more _impartial_ in evaluating the consequences of actions, by not being swayed by petty fears and attachments.
+  - so that one may be more _creative_ in devising courses of action, by not being attached to a particular course of action out of fear or conservatism;
+  - and so that one may be more _impartial_ in evaluating the consequences of actions, by not being swayed by petty fears and attachments.
 
 The relationships between this rapidly proliferating set of concepts look like this:
 
