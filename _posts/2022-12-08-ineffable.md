@@ -67,7 +67,7 @@ To a large extent, the Way consists in understanding and tranquility,
 and many questions in life deal with the practical details of attaining the two:
 
 - Does one best acquire understanding through study, or through experience? Are certain forms of understanding more conducive to one or the other?
-- Is understanding a fluid thing that evolves, or a fixed thing that accumulates? That is, should we free ourselves from attachments, or should we cultivate them?
+- Is understanding a fluid thing that evolves, or a fixed thing that accumulates? That is, should we free ourselves from constraints, or should we cultivate them?
 - What ends are considered enlightened, and what ends are considered petty? That is, where ought one to draw the line between tranquility and apathy?
 - _etc. etc. etc._
 
@@ -77,7 +77,7 @@ Without answering any of these questions, we can attempt to speak the Way (yes, 
 - Then, in any situation:
   - If it is clear what one should do, and easy, then one should do it.
   - If it seems clear but difficult, understand that you have not yet fully perceived what to do. Think about how to make the task easier and begin there.
-  - If, on the other hand, it is not clear, then one should examine whether the problem is a weakness of imagination or a weakness of judgment. Knowing this, one should then examine the nature of this weakness, and determine whether it is a lack of understanding, tranquility, or both.
+  - If, on the other hand, it is not clear at all, then one should examine whether the problem is a weakness of imagination or a weakness of judgment. Knowing this, one should then examine the nature of this weakness, and determine whether it is a lack of understanding, tranquility, or both.
     - If the problem is a lack of understanding, one should mobilize whatever resources are available to acquire understanding.
     - If the problem is a lack of tranquility, one should take a deep breath and distance themselves from the situation, aiming to become tranquil.
 
