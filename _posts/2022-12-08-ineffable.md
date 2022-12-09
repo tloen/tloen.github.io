@@ -90,7 +90,7 @@ Rather than imagining problem solving as a syllogistic process undertaken by one
 This suggests new ways to improve one's efficacy by cultivating the right conditions for each organ to do its job.
 It becomes clear, for instance, that to "think from first principles" is less about plunging oneself into a Cartesian nightmare of doubt and ratiocination, and more about flushing out the gunk accumulated in the mind every once in a while.
 
-Finally, we gain a clear foundation for why attachment can a hindrance to perception.
+Finally, we gain a clear foundation for why attachment can be a hindrance to perception.
 Some Eastern philosophies are unpalatable to a Western audience (or palatable to unpalatable segments of a Western audience) because they seem to advocate a kind of apathy, or a kind of nihilism.
 Putting aside the question of the moral value of caring as an act in itself, it is clear that becoming attached to a particular course of action, state of affairs, or frame of understanding is a hindrance to perception and hence to one's mechanistic ability to attain one's ends.
 While incentives function well to direct one's attention to a specific task, a task itself is often best accomplished from a position of security and tranquility, which can be harmed by too great of a threat or reward[^3].
