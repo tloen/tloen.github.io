@@ -25,7 +25,7 @@ lang:
 
 # Default post and page image if it's those
 # are unspecified.
-image: /assets/images/sun.png
+image: /assets/images/logo_opaque.png
 
 # I just set this to whatever the above
 # image value is.
