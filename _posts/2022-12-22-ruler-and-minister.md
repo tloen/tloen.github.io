@@ -243,4 +243,4 @@ that employees,
 finding it pointless to think about them,
 can finally focus on doing their job well.
 
-[^ceo]: I have some thoughts on accountability for executives and their compensation structure, but I don't think I should fit them in here. Maybe some other time?
+[^ceo]: I have some thoughts on CEO accountability and compensation structure, but I don't think I should fit them in here. Maybe some other time?
