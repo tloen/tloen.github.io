@@ -189,7 +189,7 @@ it issues forth an endless froth of possibilities and proposals,
 and the CEO's only job is to tame this beast with the consistent application of
 standards, rewards, and punishments.
 
-There are innumerable good examples of this in business textbooks,
+There are many good examples of this in business textbooks,
 so here's a bad one.
 I recently heard an account of a deal-making business run by a
 famous founder-investor with a reputation for disagreeableness and operational excellence.
@@ -237,10 +237,10 @@ there is only one way to get ahead,
 and that way has a credible promise of reward.
 Rather than praying for a world of perfect and universal public virtue,
 the leader of an organization should act to create
-an organization where moral and intellectual virtues for a unity —
+an organization where moral and intellectual virtues form a unity —
 where the arrangement of incentives is so flawless and compelling
 that employees,
 finding it pointless to think about them,
 can finally focus on doing their job well.
 
-[^ceo]: I have some thoughts on CEO accountability and compensation structure, but I don't think I should fit them in here. Maybe some other time?
+[^ceo]: I have some thoughts on CEO accountability and incentive structure, but I don't think I can fit them in here. Maybe some other time?
