@@ -1,6 +1,6 @@
 ---
 title: "Ruler and Minister"
-description: "Rambling screed in defense of Legalism as a viable management philosophy."
+description: "Rambling screed about incentive design. Written to settle a minor disagreement with a colleague."
 date: 2022-12-22
 layout: post
 ---
