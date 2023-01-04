@@ -6,8 +6,8 @@ layout: pages
 
 I am a technologist living in San Francisco.
 In previous lives, I was a grad student at Stanford,
-the founding editor of [The Gradient](https://thegradient.pub/),
-and an analyst at a hedge fund.
+an analyst at a hedge fund,
+and the founding editor of [_The Gradient_](https://thegradient.pub/),
 On this site, I collect fragments about a selection of my interests, including:
 
 - artificial intelligence
