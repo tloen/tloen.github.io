@@ -1,6 +1,6 @@
 ---
 title: "Ristretto Story"
-description: "Thinking about Clausewitz and waiting for a storm, 6 P.M."
+description: "Hopped up and waiting for a storm to blow in, 6 P.M."
 date: 2023-01-03
 layout: post
 ---
