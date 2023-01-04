@@ -32,4 +32,4 @@ His kingdom from the man of many ways. \
 Besides his vessel's shattered wreck he waits \
 For some auspicious movement in the stars \
 To tide him on his journey. Ought he wait, \
-Or has he withered long before his years?
+Or has he withered long before his time?
