@@ -29,7 +29,7 @@ All bear the mark of Heaven's pottery-wheel.
 
 Now fifty miles nautical divide \
 His kingdom from the man of many ways. \
-Besides his vessel's shattered wreck he waits \
+Besides his vessel's shattered wreck he looks \
 For some auspicious movement in the stars \
 To tide him on his journey. Ought he wait, \
-Or has he withered long before his time?
+Or has he wilted long before his time?
