@@ -8,7 +8,7 @@ layout: post
 A smattering of published prose \
 Contains nothing, announces nothing \
 Except the simple fact of you. \
-I hear your cloudy breath outside, \
+I spy your cloudy breath outside, \
 Your fingers tracing outlines \
 On my frosted-over windowpanes. \
 _Coquette, mademoiselle,_ \
