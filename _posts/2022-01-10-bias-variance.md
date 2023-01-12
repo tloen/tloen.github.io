@@ -124,13 +124,17 @@ After all, it is true that in such situations, the right choice of model family
 and value of $$\lambda$$ (or of "complexity")
 is coextensive with the relative priority that one
 assigns to bias and variance.
-But there is no indication that the same rules apply to deep neural networks.
+But there is no indication that the same relationships between complexity, bias, and variance apply to deep neural networks.
 
 The phenomenon of model double descent does not demonstrate that we can
-dispense with classical learning theory entirely.
+dispense with classical learning theory entirely[^bv].
 Rather, what it really teaches us is that
 we should stop abusing the bias-variance tradeoff,
 which exists for all predictor families,
 to smuggle in intuition from our experience with regularized regression models.
 
 [^openai2019]: [Nakkiran _et al._ 2019](https://arxiv.org/abs/1912.02292)
+[^bv]:
+    Although there's a good argument
+    for paying less attention to the bias-variance decomposition
+    in large models where sample variance is unobservable...
