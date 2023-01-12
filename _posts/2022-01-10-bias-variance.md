@@ -29,6 +29,8 @@ it would imply that it is a nonrigorous science.
 But while a "bias-variance tradeoff" does exist in statistics,
 in itself it says nothing at all.
 
+---
+
 Let us demonstrate this by constructing the bias-variance tradeoff from first principles.
 Recall that supervised learning is function approximation by example.
 
@@ -126,15 +128,16 @@ is coextensive with the relative priority that one
 assigns to bias and variance.
 But there is no indication that the same relationships between complexity, bias, and variance apply to deep neural networks.
 
-The phenomenon of model double descent does not demonstrate that we can
-dispense with classical learning theory entirely[^bv].
-Rather, what it really teaches us is that
+The phenomenon of model double descent does not demonstrate that
+classical learning theory has been "invalidated" in some sense.
+What it really teaches us is that
 we should stop abusing the bias-variance tradeoff,
 which exists for all predictor families,
 to smuggle in intuition from our experience with regularized regression models.
+At the same time, it does raise valid questions
+about whether the bias-variance decomposition
+is particularly relevant
+in non-regressive or high-dimensional contexts where dataset variance
+is difficult to reason about.
 
 [^openai2019]: [Nakkiran _et al._ 2019](https://arxiv.org/abs/1912.02292)
-[^bv]:
-    Although there's a good argument
-    for paying less attention to the bias-variance decomposition
-    in large models where sample variance is unobservable...
