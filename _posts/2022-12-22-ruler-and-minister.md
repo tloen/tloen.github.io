@@ -1,5 +1,5 @@
 ---
-title: "Ruler and Minister"
+title: "Ruler and minister"
 description: "Rambling screed about incentive design. Written to settle a minor disagreement with a colleague."
 date: 2022-12-22
 layout: post
