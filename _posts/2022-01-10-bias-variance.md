@@ -81,7 +81,7 @@ can only improve if we increase the maximum bias,
 and the "best" bias attainable at a given maximum variance
 can only improve if we increase the maximum variance.
 
-![](/assets/images/frontier.png)
+![](/assets/images/frontier_2.png)
 
 Insofar as a universal "bias-variance tradeoff" exists, it consists precisely in this nonincreasingness; to do "better" than the "best" predictor on one axis, we need to compromise on the other.
 But we have arrived at it assuming practically nothing here
