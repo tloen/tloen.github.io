@@ -8,15 +8,15 @@
 #
 # Basic, either your jekyll site's name or
 # an organization.
-name: "e. j. wang"
+name: "Eric J. Wang"
 description: "Personal site of Eric J. Wang."
 
 # This should be a person of some sort.
-author: "eric"
+author: "Eric"
 
 # Would make sense to use the 'name:' above
 # here. This is an alternative title.
-title: "~ejwang"
+title: "Eric J. Wang"
 
 # 'en_US' is the default language. Enter a
 # new default language here. Making 'en_US'
