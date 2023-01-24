@@ -153,9 +153,6 @@ ul, li {
     	list-style: inherit;
     	font-size: 0.9rem;
   }
-  li:last-child {
-	  margin-bottom: 1rem;
-  }
 
 }
 
@@ -179,9 +176,6 @@ ol {
 
 /* END 'ol' */
 
-li:last-child {
-  margin-bottom: .5rem;
-}
 
 p + h1,
 p + h2,
