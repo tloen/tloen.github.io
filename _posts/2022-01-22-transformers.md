@@ -6,6 +6,12 @@ layout: post
 usemathjax: true
 ---
 
+_This document is a work in progress.
+While structured as an explanatory article,
+it's mostly a log of my investigations into LLM architecture.
+Sections may appear or disappear randomly.
+Proceed with caution._
+
 #### 2017: Transformer
 
 Here is the canonical transformer diagram, from Google Brain's "Attention Is All You Need" (2017):
