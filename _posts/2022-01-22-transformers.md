@@ -142,30 +142,29 @@ since 2019, they're outside the scope of this post.
 Instead, for the rest of this section I'll focus on the main current
 propelling AI progress today: parameter scaling.
 
-Where are all those parameters, anyway? Let's break it down, wrapping $$b$$ into $$W$$ for simplicity:
+Where are all those parameters, anyway? Let's break it down, wrapping $$b$$ into $$W$$ for simplicity. The model consists of
 
-- The model consists of:
-  - Token embeddings $$W_{te} \in \mathbb{R}^{d_m \times n_v}$$
-  - Positional embeddings $$W_{pe} \in \mathbb{R}^{d_m \times n_b}$$
-  - $$n_\ell$$ transformer blocks, each of which has:
-    - a residual attention block, which has:
-      - $$n_h$$ linear projections $$W^Q_i, W^K_i, W^V_i \in \mathbb{R}^{(d_m/n_h) \times (d_m + 1)}$$
-      - another linear projection $$W^O \in \mathbb{R}^{d_m \times (d_m + 1)}$$ of the concatenated heads
-    - a residual MLP block, which has:
-      - a layer with weights $$W_1 \in \mathbb{R}^{4d_m \times (d_m + 1)}$$
-      - a layer with weights $$W_2 \in \mathbb{R}^{d_m \times (4d_m + 1)}$$
+- Token embeddings $$W_{te} \in \mathbb{R}^{d_m \times n_v}$$
+- Positional embeddings $$W_{pe} \in \mathbb{R}^{d_m \times n_b}$$
+- $$n_\ell$$ transformer blocks, each of which has:
+  - a residual attention block, which has:
+    - $$n_h$$ linear projections $$W^Q_i, W^K_i, W^V_i \in \mathbb{R}^{(d_m/n_h) \times (d_m + 1)}$$
+    - another linear projection $$W^O \in \mathbb{R}^{d_m \times (d_m + 1)}$$ of the concatenated heads
+  - a residual MLP block, which has:
+    - a layer with weights $$W^1 \in \mathbb{R}^{4d_m \times (d_m + 1)}$$
+    - a layer with weights $$W^2 \in \mathbb{R}^{d_m \times (4d_m + 1)}$$
 
 where
 
-- $$n_\ell$$ is the number of blocks;
-- $$n_h$$ is the number of heads;
-- $$d_m$$ is the embedding size, and is divisible by $$n_h$$;
-- $$n_b$$ is the block size, or maximum sequence length;
-- $$n_v$$ is the vocabulary size;
+- $$n_\ell$$ is the number of blocks,
+- $$n_h$$ is the number of heads,
+- $$d_m$$ is the embedding size, and is divisible by $$n_h$$,
+- $$n_b$$ is the block size, or maximum sequence length, and
+- $$n_v$$ is the vocabulary size,
 
 so the total number of parameters is
 
-$$d_mn_v + d_mn_b \\ + n_\ell\left(4d_m(d_m+1) + 4d_m(d_m+1) + d_m(4d_m + 1) \right)$$
+$$d_mn_v + d_mn_b \\ + n_\ell\left(4d_m(d_m+1) + 4d_m(d_m+1) + d_m(4d_m + 1) \right),$$
 
 which simplifies to
 
