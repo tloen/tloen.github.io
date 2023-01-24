@@ -146,7 +146,7 @@ Where are all those parameters, anyway? Let's break it down, wrapping $$b$$ into
 
 - Token embeddings $$W_{te} \in \mathbb{R}^{d_m \times n_v}$$
 - Positional embeddings $$W_{pe} \in \mathbb{R}^{d_m \times n_b}$$
-- $$n_\ell$$ transformer blocks, each of which has:
+- $$n_\ell$$ transformer layers, each of which has:
   - a residual attention block, which has:
     - $$n_h$$ linear projections $$W^Q_i, W^K_i, W^V_i \in \mathbb{R}^{(d_m/n_h) \times (d_m + 1)}$$
     - another linear projection $$W^O \in \mathbb{R}^{d_m \times (d_m + 1)}$$ of the concatenated heads
@@ -156,7 +156,7 @@ Where are all those parameters, anyway? Let's break it down, wrapping $$b$$ into
 
 where
 
-- $$n_\ell$$ is the number of blocks,
+- $$n_\ell$$ is the number of transformer layers,
 - $$n_h$$ is the number of heads,
 - $$d_m$$ is the embedding size, and is divisible by $$n_h$$,
 - $$n_b$$ is the block size, or maximum sequence length, and
