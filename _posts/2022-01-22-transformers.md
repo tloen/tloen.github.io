@@ -213,8 +213,63 @@ Thus the result follows because
 
 $$\lim_{d_n \rightarrow \infty} \frac{n_\ell(4d_m^2 + 4d_m)}{n_\ell(8d_m^2 + 5d_m)} = 1/2.$$
 
-This is mildly enlightening, but I'm starting to realize that parameter count is a lot less interesting than memory usage and FLOP intensity.
-Will write up my notes on those soon.
+---
+
+#### 2023: The direction of the field
+
+It would be misleading to say that parameter scaling is the _only_ thing OpenAI
+has accomplished technologically;
+efficient training and inference of massively scaled models is a significant
+technical challenge requiring a good amount of clever engineering.
+
+At the same time, we shouldn't overstate the degree to which that engineering was done
+at OpenAI;
+OpenAI employees have claimed credit for _e.g._ the prenormalized architecture,
+which predates even the publication of "Attention Is All You Need,"
+and a number of the performance optimizations were discovered outside OpenAI itself.
+
+When faced with the observations that
+
+- most "in-house" technological achievements publically claimed by OpenAI employees
+  are actually trivial or sourced from outside the organization,
+- OpenAI executives regularly speak of the enormous efficacy of its employees
+  and the outcomes that small teams can attain, and
+- employees at OpenAI have a penchant for spinning off into their own competitor corporations, _e.g._ Anthropic, and raising obscene amounts,
+
+Occam's Razor would suggest that most of the organization's comparative
+advantage comes from its unique position with respect to the capital markets,
+and that the employees who leave are aware of this.
+
+If scaling and the engineering it requires are the main accomplishments of OpenAI
+since 2018, it seems clear that one can still build
+a competitor LLM company by combining preferential access to the capital markets
+with a keen and persistent bureaucratic acumen.
+We are fortunate in this respsect to be in the early stages of this technology,
+where most work is still open-source
+and organizations are only beginning to reorient from splashy public demos
+to the industrial production of secrets.
+But as intellectual capital continues to form behind closed doors,
+upstarts will have an increasingly difficult time competing.
+
+The analogy to semiconductor fabs is compelling but flawed.
+AI progress is sped along by the tailwinds of hardware advancements and Moore's law,
+but there is no Moore's law for semiconductor capital equipment itself;
+this latter fact alone justifies TSMC's enormous capex
+and its symbiotic relationship with Apple.
+Instead,
+we should expect the systems layer of the LLM industry to increasingly resemble
+the quantitative trading industry:
+a dynamic landscape where a few players
+compete to build fast-moving organizations
+that can produce short-lived technical secrets on a regular basis,
+and where the knowledge of how to build such organizations
+can only be learned from within one.
+
+In the limit, the power of the organization
+all falls down to the executive's ability to raise capital and apply standards.
+Who, then, shall contend with Sam Altman?
+
+---
 
 #### Appendix: the experts weigh in
 
