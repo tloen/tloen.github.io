@@ -31,7 +31,7 @@ that maps input sequences $$x$$ to distributions over output sequences $$y$$.
 
 This is a semi-supervised learning problem
 over datasets $$\{(x^{(i)}, y^{(i)})\}$$
-where $$y^{(i)} \sim p(y|^{(i)})$$.
+where $$y^{(i)} \sim p(y|x^{(i)})$$.
 The architecture above takes in an example $$(x^{(i)}, y^{(i)})$$ and outputs a vector $$\hat p^{(i)}$$ which represents an autoregressive model of $$p(y^{(i)}|x^{(i)})$$ where $$\hat p^{(i)}_j \triangleq p^{(i)}(y^{(i)}_j | x^{(i)}, y^{(i)}_{<j})$$.
 This lets us optimize some loss $$\ell(\hat p)$$ to train a model.
 
@@ -64,7 +64,7 @@ When we knock out the inputs $$x$$, we arrive at this simple, "decoder-only" arc
 
 ![](/assets/images/gpt_arch.png)
 
-This perfectly matches the official diagram of the GPT architecture.
+This perfectly matches the official diagram of GPT.
 
 ![](/assets/images/gpt_arch_2.png)
 
