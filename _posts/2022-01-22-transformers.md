@@ -1,6 +1,6 @@
 ---
 title: "Historical notes on GPT architecture"
-description: "High-level research document on the GPT architecture in historical context"
+description: "Technical history of GPT from an architectural viewpoint. Some industry-level read-throughs."
 date: 2023-01-22
 layout: post
 usemathjax: true
