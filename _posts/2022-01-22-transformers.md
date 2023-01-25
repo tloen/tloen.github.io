@@ -230,15 +230,17 @@ and a number of the performance optimizations were discovered outside OpenAI its
 
 When faced with the observations that
 
-- most "in-house" technological achievements publically claimed by OpenAI employees
-  are actually trivial or sourced from outside the organization,
+- besides sparse attention,
+  in-house technological achievements from OpenAI itself seem relatively few,
 - OpenAI executives regularly speak of the enormous efficacy of its employees
   and the outcomes that small teams can attain, and
 - employees at OpenAI have a penchant for spinning off into their own competitor corporations, _e.g._ Anthropic, and raising obscene amounts,
 
 Occam's Razor would suggest that most of the organization's comparative
 advantage comes from its unique position with respect to the capital markets,
-and that the employees who leave are aware of this.
+that — despite protests to the contrary —
+it is still mostly true that "Google invented the transformer and OpenAI jsut scaled it up,"
+and that the employees who leave to start competitors are aware of this.
 
 If scaling and the engineering it requires are the main accomplishments of OpenAI
 since 2018, it seems clear that one can still build
