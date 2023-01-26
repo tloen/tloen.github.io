@@ -219,8 +219,8 @@ $$\lim_{d_n \rightarrow \infty} \frac{n_\ell(4d_m^2 + 4d_m)}{n_\ell(8d_m^2 + 5d_
 
 It would be misleading to say that parameter scaling is the _only_ thing OpenAI
 has accomplished technologically;
-efficient training and inference of massively scaled models is a significant
-technical challenge requiring a good amount of clever engineering.
+efficient training and inference of massively scaled models are significant
+technical challengs requiring a good amount of clever engineering.
 
 At the same time, we shouldn't overstate the degree to which that engineering was done
 at OpenAI;
