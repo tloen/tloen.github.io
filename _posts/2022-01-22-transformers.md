@@ -246,7 +246,7 @@ If scaling and the engineering it requires are the main accomplishments of OpenA
 since 2018, it seems clear that one can still build
 a competitor LLM company by combining preferential access to the capital markets
 with a keen and persistent bureaucratic acumen.
-We are fortunate in this respsect to be in the early stages of this technology,
+We are fortunate in this respect to be in the early stages of this technology,
 where most work is still open-source
 and organizations are only beginning to reorient from splashy public demos
 to the industrial production of secrets.
