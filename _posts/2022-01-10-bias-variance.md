@@ -25,7 +25,7 @@ While the authors of the paper are careful not to overplay their hand,
 commentators have claimed that the existence of the modern regime in double descent
 contradicts the "bias-variance tradeoff" predicted by statistical learning theory.
 If a statistical theorem could be falsified and contradicted like this,
-it would imply that it is a nonrigorous science.
+it would imply that stastistics is a nonrigorous science.
 But while a "bias-variance tradeoff" does exist in statistics,
 in itself it says nothing at all.
 
