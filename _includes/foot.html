@@ -10,6 +10,25 @@
             {%- assign url_butt = '/' -%}
             {%- assign text = ' home ' -%}
         {%- endif -%}
+        {% if page.usemermaid %}
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.esm.min.mjs';
+      var config = {
+          startOnLoad: true,
+          theme: 'forest',
+          themeVariables: {
+            fontSize: '12px'
+          },
+          flowchart:{
+              useMaxWidth:false,
+              htmlLabels:true
+          },
+          securityLevel: 'loose'
+      };
+      mermaid.initialize(config);
+      mermaid.init({flowchart: { useMaxWidth: false, htmlLabels: true }}, document.querySelectorAll('.language-mermaid'));
+    </script>
+    {% endif %}
         <div class="footer">
             |<a href="{{ site.url }}{{ url_butt }}">{{ text }}</a>|
         </div> 

@@ -42,6 +42,11 @@ permalink: /:year/:month/:day/:title.html
 # Markdown
 markdown: kramdown
 
+# Syntax highlighting
+highlighter: rouge
+kramdown:
+  input: GFM
+
 # Navigation
 nav:
   - name: "about/contact"
