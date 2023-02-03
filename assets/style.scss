@@ -62,7 +62,7 @@ body {
 }
 
 .container_post {
-  	max-width: 500px;
+  	max-width: 540px;
   	margin: auto;
 }
 
@@ -492,4 +492,9 @@ code {
 	font-size: 0.8rem;
 	line-height: 0.6rem;
 }
-svg[id^="mermaid-"] { max-width: 100%; } 
+svg[id^="mermaid-"] { max-width: 100%; display: block; margin: auto; } 
+
+.language-mermaid {
+    width:max-content;
+	text-align: center;
+}
