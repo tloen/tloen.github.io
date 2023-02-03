@@ -12,16 +12,11 @@
         {%- endif -%}
         {% if page.usemermaid %}
     <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.esm.min.mjs';
+      import mermaid from '/assets/scripts/mermaid.esm.min.mjs';
       var config = {
           startOnLoad: true,
-          theme: 'forest',
           themeVariables: {
             fontSize: '12px'
-          },
-          flowchart:{
-              useMaxWidth:false,
-              htmlLabels:true
           },
           securityLevel: 'loose'
       };

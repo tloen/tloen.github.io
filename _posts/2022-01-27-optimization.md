@@ -171,7 +171,7 @@ def get_rand_input(batch_size, seq_len=1024):
     )
 ```
 
-When I run this code on `gpt2-xl` with a prompt length of 128,
+When I run the full version of this code on `gpt2-xl` with a prompt length of 128,
 my GPU issues forth a long croak of coil whine,
 and spits out:
 
@@ -206,6 +206,10 @@ t as those she ran, visible to him; her lewness of her
 At an instant, as she adjusts her masts, the deserted
 hulk of a powerful ship pierces her leeward. Huge colu
 mns of
+
+== END OF SAMPLED TEXT ==
+
+time: 11.12s
 ```
 
 Too late do I now realize that I chose the wrong text with which to test model correctness.
@@ -217,52 +221,145 @@ as long as their final activations match nanoGPT's.
 
 ---
 
-```mermaid
-flowchart BT
-Wte["W<sub>te</sub>"] --> WteU["W<sub>te</sub>U"]
-U["U<sub>&lt;i<sub>"] --> WteU
-Wpe["W<sub>pe</sub>"] --> Embedding
-WteU --> Embedding["W<sub>pe</sub> + W<sub>te</sub>U"]
-Embedding --> Block
+#### Surface remarks about optimization
 
-subgraph Block["Block (x<i>N</i>)"]
+A glance at `nvtop` gives us the story on the inference above:
+
+![](/assets/images/coil_whine.png)
+
+First, memory usage climbs to 6 GiB.
+Once the model is loaded, the GPU's utilization shoots up to 99%.
+Then, once inference is finished, 11.12 seconds later,
+it drops back down to zero.
+
+It's reasonable to assume that we're compute-bottlenecked right now,
+because `nvidia-smi` is telling us that that GPU utilization is at 99%
+and we have plenty of memory to spare.
+After all,
+1557.61M parameters of four bytes each makes 5.8 GiB,
+which explains the memory utilization figure.
+Doubling the batch size more or less doubles the time that inference takes,
+suggesting that a single example already requires too many FLOPs to vectorize appropriately.
+
+To figure out where we can squeeze out more compute efficiency,
+then, let's review the GPT architecture.
+In the diagram below, which I've lovingly rendered with a modded-out implementation
+of [mermaid](https://github.com/mermaid-js/mermaid),
+inputs are marked in green,
+parameters are marked in blue,
+matmuls are marked in red,
+and the output of a module is its unique topmost value.
+
+```mermaid
+%%{init: { "flowchart": {"useMaxWidth": true, "rankSpacing": 20} } }%%
+
+flowchart BT
+subgraph GPT
+direction BT
+classDef weight fill:#88f,stroke:#00a
+classDef input fill:#8f8,stroke:#0a0
+classDef matmul fill:#f88,stroke:#a00
+
+Wte["W<sub>te</sub>"] --> WteU["W<sub>te</sub>U<sub>&lt;t</sub>"]
+class WteU matmul
+Wte --> Logits
+class Wte weight
+U["U<sub>&lt;t</sub>"] --> WteU
+class U input
+WteU --> Embedding["W<sub>te</sub>U<sub>&lt;t</sub> + W<sub>pe</sub> "]
+Wpe["W<sub>pe</sub>"] ---> Embedding
+class Wpe weight;
+Embedding --> Block
+subgraph Block["Block (x <i>n<sub>l</sub></i>)"]
     direction BT
-    xb[x] --> LayerNorm1[LayerNorm] --> CausalSelfAttention
-    xb[x] --> resid1["x = x + CSA(x)"]
+    xb --> LayerNorm1[LayerNorm] --> CausalSelfAttention
+    xb[X] --> resid1["X = X + CSA(X)"]
+    class xb input
     CausalSelfAttention --> resid1
     subgraph CausalSelfAttention
         direction BT
-        Wqmk["W<sub>qmk</sub>"] --> QKV["W<sub>qmk</sub>(W<sub>pe</sub> + W<sub>te</sub>U) + b<sub>qmk</sub>"]
-        xcsa[x] --> QKV
+        Wqmk["W<sub>qmk</sub>"] --> QKV["W<sub>qmk</sub>X"]
+        class Wqmk weight
+        xcsa[X] --> QKV
+        class QKV matmul
+        class xcsa input
         QKV --> Q["Q"]
         QKV --> K["K"]
         QKV --> V["V"]
         Q --> QK["Q<sup>T</sup>K/√d<sub>m</sub>"]
         K --> QK
+        class QK matmul
         QK --> mQK["Mask(Q<sup>T</sup>K/√d<sub>m</sub>)"] --> sQK["Softmax(Mask(Q<sup>T</sup>K/√d<sub>m</sub>))"]
         sQK --> attn
-        V --> attn["Softmax(Mask(Q<sup>T</sup>K/√d<sub>m</sub>))V"]
+        V -----> attn["Softmax(Mask(Q<sup>T</sup>K/√d<sub>m</sub>))V"]
+        class attn matmul
     end
     resid1 --> LayerNorm2[LayerNorm] --> MLP
-    resid1 --> resid2["x = x + MLP(x)"]
+    resid1 --> resid2["X = X + MLP(X)"]
     MLP --> resid2
     subgraph MLP
         direction BT
-        xm[x] --> layer1[W<sub>1</sub>x]
+        xm[X] --> layer1[W<sub>1</sub>x]
+        class xm input
         W1[W<sub>1</sub>] --> layer1
         layer1 --> hlayer1["gelu(W<sub>1</sub>x)"]
-        W2[W<sub>2</sub>] --> layer2
+        class layer1 matmul
+        W2[W<sub>2</sub>] ----> layer2
         hlayer1 --> layer2["W<sub>2</sub>gelu(W<sub>1</sub>x)"]
+        class layer2 matmul
+        class W1 weight
+        class W2 weight
     end
 end
-
-Block --> Logits[W<sub>te</sub><sup>T</sup>x]
-Logits --> Multinomial["U<sub>i</sub> = Multinomial(exp(W<sub>te</sub><sup>T</sup>x))"]
+Block --> Logits[W<sub>te</sub><sup>T</sup>Z]
+class Logits matmul
+Logits --> Multinomial["U<sub>t</sub> = Multinomial(exp(W<sub>te</sub><sup>T</sup>Z))"]
+end
 ```
 
-We should start by noting that
+We care about matmuls here because all of the other nodes in the computation graph
+are $$O(mn)$$, while naïve matrix multiplication
+$$\mathbb{R}^{m\times n} \times \mathbb{R}^{n \times p} \rightarrow \mathbb{R}^{m \times p}$$
+is $$O(mnp)$$, which heuristically suggests that they should account for most of our FLOPs.
 
-#### Memoization
+Here are our five matmuls, with $$t$$ being the sequence length
+and all other variables as they are in [the previous post](https://www.ericjwang.com/2023/01/22/transformers.html):
+
+- $$W_{te}U_{<t}$$, which is not really a matmul in the first place because $$U$$ is one-hot,
+  and can be implemented without FLOPs;
+- $$n_\ell$$ instances of $$W_{qmk}X: \mathbb{R}^{t \times (3d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (3d_m \times 1)}$$,
+  - in total, about[^b] $$3 n_\ell td_m^2$$ FLOPs;
+- $$n_\ell$$ instances of $$Q^TK: \mathbb{R}^{t \times d_m} \times \mathbb{R}^{d_m \times t} \rightarrow \mathbb{R}^{t \times t}$$,
+  - in total $$n_\ell t^2d_m$$ FLOPs;
+- $$n_\ell$$ instances of $$\text{Softmax}(\text{Mask}(\frac{Q^TX}{\sqrt{d_m}}))V: \mathbb{R}^{t \times t} \times \mathbb{R}^{t \times d_m} \rightarrow \mathbb{R}^{t \times d_m}$$,
+  - in total $$n_\ell t^2d_m$$ FLOPs;
+- $$W_1x : \mathbb{R}^{1 \times (4d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (4d_m \times 1)}$$,
+  - about $$4td_m^2$$ FLOPs;
+- $$W_2(\text{GELU}(W_1x)) : \mathbb{R}^{1 \times (4d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (4d_m \times 1)}$$,
+  - about $$4td_m^2$$ FLOPs;
+- $$W_{te}^T Z : \mathbb{R}^{1 \times (n_v \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (n_v \times 1)}$$,
+  - $$tn_vd_m$$ FLOPs.
+
+Because our code evaluates the forward pass for $$256 \leq t < 512$$,
+the FLOP requirement of our current algorithm due to matmuls is
+approximately
+
+$$\sum_{t = 256}^{511} \left(3n_\ell td_m^2 + 2n_\ell t^2 d_m + 8td_m^2 + tn_vd_m \right),$$
+
+or around 51 trillion.
+This leads right into our first optimization ---
+a high-level algorithmic
+
+[^b]: I haven't included the bias because I'm lazy.
+
+#### Attention
+
+raises the question of why we're recomputing
+all the entries in the attention matrices on each pass when we know that they're the same
+as the time before.
+
+(Isn't that how masked attention is supposed to work, after all?
+The autoregressive decoder only computes new entries for each token!)
 
 #### FL8 quantization
 
