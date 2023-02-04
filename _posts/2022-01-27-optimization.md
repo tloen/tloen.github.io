@@ -594,7 +594,7 @@ Right?
 
 Let's say we could make all the values on the GPU take up half as much space as they
 did before. What should the new batch size be?
-Well, if we could previously support a batch size of 32, we could argue heuristically
+Well, if the device could previously support a batch size of 32, we could argue heuristically
 that the parameters and buffers now take up just 12 GiB,
 and we can fit another 12 GiB / (0.15 GiB) = 80 buffers on the GPU
 for a total of 112.
