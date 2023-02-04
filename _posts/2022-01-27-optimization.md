@@ -75,7 +75,7 @@ Still, one must justify the unjustifiable.
 I've always been interested in ML inference at the systems level,
 and owning a GPU is a good way to act on that interest.
 So for the past week, on the advice of my friend [Horace He](https://horace.io/),
-I've been spending my leisure time getting my hands dirty
+I've been spending my leisure time gradually
 accelerating the inference of a basic GPT model.
 
 I chose to begin with Andrej Karpathy's
