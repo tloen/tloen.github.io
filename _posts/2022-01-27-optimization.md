@@ -7,6 +7,12 @@ usemathjax: true
 usemermaid: true
 ---
 
+_This document is a work in progress.
+While structured as an explanatory article,
+it's mostly a log of research projects I undertake in my spare time.
+Sections may appear or disappear randomly.
+Proceed with caution._
+
 ![](/assets/images/nge_ml.png)
 
 {% comment %}
@@ -625,8 +631,6 @@ subgraph IncrementalCausalSelfAttention["Incremental CSA"]
 end
 ```
 
-{%endcomment%}
-
 #### Karpathy
 
 #### FL8 quantization
@@ -674,3 +678,5 @@ I install `miniconda`, then pull the nightly build of PyTorch into a `dl` enviro
     > whether the cauldrons are light or heavy may not be asked yet.”
     >
     > _Zuozhuan_ trans. Durrant, Li, Schaberg (_c._ 300 BC)
+
+{%endcomment%}
