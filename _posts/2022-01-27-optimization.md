@@ -352,7 +352,7 @@ We care about matmuls here because all of the other nodes in the computation gra
 take $$O(mn)$$ FLOPs,
 while naïve matrix multiplication
 $$\mathbb{R}^{m\times n} \times \mathbb{R}^{n \times p} \rightarrow \mathbb{R}^{m \times p}$$
-takes $$2mnp = O(mnp)$$ FLOPs[^2mnp], which heuristically suggests that they should account for most of our FLOPs.
+takes $$2mnp = O(mnp)$$ FLOPs[^2mnp], which heuristically suggests that they should account for the largest share.
 
 [^2mnp]: Half are multiplications, the other half are additions.
 
