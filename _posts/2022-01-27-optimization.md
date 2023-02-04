@@ -303,8 +303,8 @@ subgraph Block["Block (x <i>n<sub>l</sub></i>)"]
     CausalSelfAttention --> resid1
     subgraph CausalSelfAttention
         direction BT
-        Wqmk["W<sub>qmk</sub>"] --> QKV["W<sub>qmk</sub>X"]
-        class Wqmk weight
+        Wqkv["W<sub>qkv</sub>"] --> QKV["W<sub>qkv</sub>X"]
+        class Wqkv weight
         xcsa[X] --> QKV
         class QKV matmul
         class xcsa input
@@ -355,12 +355,12 @@ and all other variables as they are in [the previous post](https://www.ericjwang
 
 - $$W_{te}U_{<t}$$, which is not really a matmul in the first place because $$U$$ is one-hot,
   and can be implemented without FLOPs;
-- $$n_\ell$$ instances of $$W_{qmk}X: \mathbb{R}^{t \times (3d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (3d_m \times 1)}$$,
+- $$n_\ell$$ instances of $$W_{qkv}X: \mathbb{R}^{t \times (3d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (3d_m \times 1)}$$,
   - in total, about[^b] $$6 n_\ell td_m^2$$ FLOPs;
 - $$n_\ell$$ instances of $$QK^T: \mathbb{R}^{t \times d_m} \times \mathbb{R}^{d_m \times t} \rightarrow \mathbb{R}^{t \times t}$$,
   - in total $$2n_\ell t^2d_m$$ FLOPs;
 - $$n_\ell$$ instances of $$\text{Softmax}(\text{Mask}(\frac{QK^T}{\sqrt{d_m}}))V: \mathbb{R}^{t \times t} \times \mathbb{R}^{t \times d_m} \rightarrow \mathbb{R}^{t \times d_m}$$,
-  - in total $$2 n_\ell 2t^2d_m$$ FLOPs;
+  - in total $$2 n_\ell t^2d_m$$ FLOPs;
 - $$W_1x : \mathbb{R}^{1 \times (4d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (4d_m \times 1)}$$,
   - about $$8td_m^2$$ FLOPs;
 - $$W_2(\text{GELU}(W_1x)) : \mathbb{R}^{1 \times (4d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (4d_m \times 1)}$$,
@@ -383,7 +383,7 @@ of how the hardware works.
 
 [^b]: I haven't included the bias because I'm lazy.
 
-#### Day 1: Memoizing Causal Self-Attention
+#### Day 1: Memoizing Causal Self-Attention (KV caching)
 
 It is often said of causal self-attention that "later tokens in a sequence
 do not affect the embeddings of earlier ones."
@@ -402,8 +402,8 @@ classDef weight fill:#88f,stroke:#00a
 classDef input fill:#8f8,stroke:#0a0
 classDef matmul fill:#f88,stroke:#a00
 
-    Wqmk["W<sub>qmk</sub>"] --> QKV["W<sub>qmk</sub>X"]
-    class Wqmk weight
+    Wqkv["W<sub>qkv</sub>"] --> QKV["W<sub>qkv</sub>X"]
+    class Wqkv weight
     xcsa[X] --> QKV
     class QKV matmul
     class xcsa input
@@ -432,27 +432,49 @@ How does each node on the graph differ?
   $$
   $$
   = \left(\begin{matrix}Q_{<t}K_{<t}^T & Q_{<t} k_t \\ q_{t}K_{<t}^T & q_t^T k_t^T \end{matrix}\right)
-  = \left(\begin{matrix}\begin{matrix}Q_{<t}K_{<t}^T & q_{t} k_t\end{matrix} \\ q_{t}^T K_{\leq t} \end{matrix}\right)
+  = \left(\begin{matrix}\begin{matrix}Q_{<t}K_{<t}^T & q_{t} k_t\end{matrix} \\ q_{t}^T K_{\leq t}^T \end{matrix}\right)
   $$
-- $$\frac{1}{\sqrt{d_m}}\mathrm{Mask}(Q_{\leq t}^TK_{\leq t}) = \frac{1}{\sqrt{d_m}}\left(\begin{matrix}\begin{matrix}\mathrm{Mask}(Q_{<t}^TK_{<t}) & \mathbf{-\infty} \end{matrix} \\ q_{t}^T K_{\leq t} \end{matrix}\right)$$
+- $$\frac{1}{\sqrt{d_m}}\mathrm{Mask}(Q_{\leq t}K_{\leq t}^T) = \frac{1}{\sqrt{d_m}}\left(\begin{matrix}\begin{matrix}\mathrm{Mask}(Q_{<t}K_{<t}^T) & - \vec{\infty} \end{matrix} \\ q_{t}^T K_{\leq t}^T \end{matrix}\right)$$
   ,
-  - where the final $$-\infty$$ represents a column of $$t - 1$$ masked entries;
+  - where the final $$-\vec\infty$$ represents a column of $$t - 1$$ masked entries;
 - $$
-  \mathrm{Softmax}\left(d^{-1/2}_m \mathrm{Mask}(Q_{\leq t}^TK_{\leq t})\right)
+  \mathrm{Softmax}\left(d^{-1/2}_m \mathrm{Mask}(Q_{\leq t}K_{\leq t})^T\right)
   $$
   $$
-  = \left(\begin{matrix}\begin{matrix}\mathrm{Softmax}(d^{-1/2}_m \mathrm{Mask}(Q_{<t}^TK_{<t})) & \mathbf{0} \end{matrix} \\ \mathrm{Softmax}(d^{-1/2}_mq_{t}^T K_{\leq t}) \end{matrix} \right)
+  = \left(\begin{matrix}\begin{matrix}\mathrm{Softmax}(d^{-1/2}_m \mathrm{Mask}(Q_{<t}K_{<t}^T)) & \vec{0} \end{matrix} \\ \mathrm{Softmax}(d^{-1/2}_mq_{t}^T K_{\leq t}^T) \end{matrix} \right)
   $$
 - $$
-  \mathrm{Softmax}\left(d^{-1/2}_m \mathrm{Mask}(Q_{\leq t}^TK_{\leq t})\right)V_{\leq t}
+  \mathrm{Attn}(X_{\leq t}) \\
   $$
   $$
-  = \left(\begin{matrix}\begin{matrix}\mathrm{Softmax}(d^{-1/2}_m \mathrm{Mask}(Q_{<t}^TK_{<t})) & \mathbf{0} \end{matrix} \\ \mathrm{Softmax}(d^{-1/2}_mq_{t}^T K_{\leq t}) \end{matrix} \right)
+    \triangleq \mathrm{Softmax}\left(d^{-1/2}_m \mathrm{Mask}(Q_{\leq t}K_{\leq t}^T)\right)V_{\leq t}
+  $$
+  $$
+  = \left(\begin{matrix}\begin{matrix}\mathrm{Softmax}(d^{-1/2}_m \mathrm{Mask}(Q_{<t}K_{<t}^T)) & \vec{0} \end{matrix} \\ \mathrm{Softmax}(d^{-1/2}_mq_{t}^T K_{\leq t}^T) \end{matrix} \right)
     \left(\begin{matrix}V_{<t} \\ v_t^T \end{matrix}\right)
   $$
   $$
-  = \left(\begin{matrix}\begin{matrix}\mathrm{Softmax}(d^{-1/2}_m \mathrm{Mask}(Q_{<t}^TK_{<t}))V_{<t} & \mathbf{0} \end{matrix} \\ \mathrm{Softmax}(d^{-1/2}_mq_{t}^T K_{\leq t})V_{\leq t} \end{matrix} \right)
+  = \left(\begin{matrix}\begin{matrix}\mathrm{Softmax}(d^{-1/2}_m \mathrm{Mask}(Q_{<t}K_{<t}^T))V_{<t} \end{matrix} \\ \mathrm{Softmax}(d^{-1/2}_mq_{t}^T K_{\leq t}^T)V_{\leq t} \end{matrix} \right)
   $$
+  $$
+  = \left(\begin{matrix}\begin{matrix} \mathrm{Attn}(X_{<t}) \end{matrix} \\ \mathrm{Softmax}(d^{-1/2}_mq_{t}^T K_{\leq t}^T)V_{\leq t} \end{matrix} \right)
+  $$
+
+That is, each incremental sequence entry $$x_t$$
+adds the entry
+$$\mathrm{Softmax}(d^{-1/2}_mq_t^T K_{\leq t}^T)V_{\leq t}$$
+to the output attention matrix.
+If we can memoize $$K_{<t}$$ and $$V_{<t}$$ from a previous forward pass of the model,
+self-attention will only require
+the matrix multiplications
+
+- $$W_{qkv}x_t^T + b_{qkv}$$, which takes $$6d_m(d_m+1)$$ FLOPs;
+- $$q_t^TK_{\leq t}^T$$, which takes $$2td_m$$ FLOPs;
+- $$\mathrm{Softmax}(d^{-1/2}_mq_t^T K_{\leq t}^T)V_{\leq t}$$, which takes $$2td_m$$ FLOPs.
+
+Thus, we have gone from $$4t^2d_m+ 6td_m^2 + O(d_m + t)$$ to $$4td_m + 6d_m^2 + O(d_m)$$ FLOPs in the incremental block.
+This technique has been referred to elsewhere as
+[_KV caching_](https://arxiv.org/pdf/2211.05102.pdf).
 
 ```mermaid
 
@@ -463,47 +485,147 @@ classDef matmul fill:#f88,stroke:#a00
 
 subgraph CausalSelfAttention
     direction BT
-    Wqmk["W<sub>qmk</sub>"] --> QKV["W<sub>qmk</sub>X"]
-    class Wqmk weight
+    Wqkv["W<sub>qkv</sub>"] --> QKV["W<sub>qkv</sub>X"]
+    class Wqkv weight
     xcsa[X] --> QKV
     class QKV matmul
     class xcsa input
     QKV --> Q["Q<sub>&lt;t</sub>"]
     QKV --> K["K<sub>&lt;t</sub>"]
     QKV --> V["V<sub>&lt;t</sub>"]
-    Q --> QK["QK<sup>T</sup>"]
+    Q --> QK["Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>"]
     K --> QK
     class QK matmul
-    QK --> mQK["Mask(QK<sup>T</sup>)"] --> sQK["Softmax(Mask(QK<sup>T</sup>)/√d<sub>m</sub>)"]
+    QK --> mQK["Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)"] --> sQK["Softmax(Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)/√d<sub>m</sub>)"]
     sQK --> attn
-    V -----> attn["Softmax(Mask(QK<sup>T</sup>)/√d<sub>m</sub>)V"]
+    V -----> attn["Softmax(Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)/√d<sub>m</sub>)V<sub>&lt;t</sub>"]
     class attn matmul
 end
 
-subgraph _CausalSelfAttention
+subgraph IncrementalCausalSelfAttention
     direction BT
-    _Wqmk["W<sub>qmk</sub>"] --> _QKV["W<sub>qmk</sub>x"]
-    class _Wqmk weight
+    _Wqkv["W<sub>qkv</sub>"] --> _QKV["W<sub>qkv</sub>x<sub>t</sub><sup>T</sup>"]
+    class _Wqkv weight
     _xcsa[x] --> _QKV
     class _QKV matmul
     class _xcsa input
     _QKV --> _Q["q<sub>t</sub>"]
     _QKV --> _K["k<sub>t</sub>"]
     _QKV --> _V["v<sub>t</sub>"]
-    _Q --> _QK["q<sub>t</sub><sup>T</sup>K"]
+    _Q ---> _QK["q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>"]
     _K --> __K
-    K --> __K["K"] -->_QK
+    K --> __K["K<sub>≤t</sub>"] -->_QK
     class _QK matmul
-    _QK --> _mQK["Mask(q<sub>t</sub><sup>T</sup>K)/√d<sub>m</sub>"] --> _sQK["Softmax(Mask(QK<sup>T</sup>)/√d<sub>m</sub>)"]
+    _QK --> _mQK["Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>"] --> _sQK["Softmax(Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>)"]
     _sQK --> _attn
     _V --> __V
-    V --> __V["V"] -----> _attn["Softmax(Mask(q<sub>t</sub><sup>T</sup>K)/√d<sub>m</sub>)V"]
+    V --> __V["V<sub>≤t</sub>"] -----> _attn["Softmax(Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>)V<sub>≤t</sub>"]
     class _attn matmul
 end
 ```
 
-(Isn't that how masked attention is supposed to work, after all?
-The autoregressive decoder only computes new entries for each token!)
+A model that implements KV caching
+would run a first pass with the entire
+prompt to populate the cache,
+then a series of single-token passes
+that incrementally build on the cached values.
+There is no need to modify the feed-forward layer
+because it doesn't involve interactions between multiple $$t$$,
+but we should make sure to
+offset the positional embeddings $$W_{pe}$$ accordingly.
+
+{%comment%}
+But we can do a little better if we're creative about what we memoize.
+Let's unwind $$W_{qkv}$$ into its constituent projections $$W_q, W_k, W_v$$.
+Remember that $$q_t \triangleq W_q x_t + b_q$$ and $$k_t \triangleq W_k x_t + b_k$$, so
+
+$$
+\begin{align}
+q_t^T K_{\leq t}^T &= (W_qx_t + b_q)^T \left(\begin{smallmatrix}K_{< t}^T & k_t\end{smallmatrix} \right) \\
+\end{align}
+$$
+
+$$= \left(\begin{smallmatrix}(W_qx_t + b_q)^TK_{< t}^T & (W_qx_t + b_q)^Tk_t\end{smallmatrix}\right)$$
+
+$$= \left(\begin{smallmatrix}x_t^T (W_q^T K_{< t}^T) + b_q^T K_{<t}^T & x_t^T (W_q^T k_t) + b_q^T k_t\end{smallmatrix}\right).$$
+
+If we cache $$W_q^TK_{\leq t}^T$$ and $$b_q^TK_{\leq t}^T$$
+instead of $$K_{\leq t}$$, the operations for computing $$q_t^T K_{\leq t}^T$$ become:
+
+- $$k_t = W_k x_t + b_t$$, which takes $$2d_m(d_m+1)$$ FLOPs;
+- $$W_q^T k_t$$, which takes $$2d_m^2$$ FLOPs and is cached;
+- $$b_q^T k_t$$, which takes $$2d_m$$ FLOPs and is cached;
+- $$x^T (W_q^T k_t)$$, which takes $$2d_m$$ FLOPs;
+- $$x^T (W_q^T k_t)$$, which takes $$2(d_m)$$ FLOPs;
+- Some more additions that take $$O(d_m)$$ FLOPs.
+
+$$= \mathrm{Softmax}(d^{-1/2}_m  \left(\begin{smallmatrix}(W_qx_t + b_q)^TK_{< t}^T & (W_qx_t + b_q)^T(W_kx_t + b_k)\end{smallmatrix}\right))V_{\leq t}$$
+
+$$= \mathrm{Softmax}(d^{-1/2}_m \left(\begin{smallmatrix}x_t^TW_q^TK_{<t}^T + b_q^T K_{< t}^T & x_t^TW_q^Tk_t + b_q^T k_t\end{smallmatrix}\right))V_{\leq t}$$
+$$= \mathrm{Softmax}(d^{-1/2}_m \left(\begin{smallmatrix}x_t^TW_q^TK_{<t}^T + b_q^T K_{< t}^T & x_t^TW_q^T(W_k x_t + b_k) + b_q^T (W_k x_t + b_k)\end{smallmatrix}\right))V_{\leq t}$$
+$$\mathrm{Softmax}(d^{-1/2}_mq_t^T K_{\leq t}^T)V_{\leq t} = \mathrm{Softmax}(d^{-1/2}_m x_t^T W_q^T K_{\leq t}^T)V_{\leq t}$$
+$$= \mathrm{Softmax}\left(d^{-1/2}_m x_t^T \left(\begin{smallmatrix}W_q^T K_{< t}^T & W_q^T k_t\end{smallmatrix}\right)\right)V_{\leq t}$$
+$$= \mathrm{Softmax}\left(d^{-1/2}_m x_t^T \left(\begin{smallmatrix}W_q^T K_{< t}^T & W_q^T W_k x_t\end{smallmatrix}\right)\right)V_{\leq t}$$
+
+or
+
+$$\mathrm{Softmax}\left(d^{-1/2}_m x_t^T \left(\begin{smallmatrix}W_q^T K_{< t}^T +& W_q^T W_k x_t\end{smallmatrix}\right)\right)V_{\leq t}$$
+
+if we include biases.
+
+If we memoize $$W_q^TK_{\leq t}$$ instead of $$K_{\leq t}$$ and precompute $$W_q^TW_k$$ (accounting for biases, of course, so more like $$W_q^TW_k + W_qb_k + b_q^T$$), we need only the matrix multiplications
+
+-
+
+```mermaid
+
+flowchart BT
+classDef weight fill:#88f,stroke:#00a
+classDef input fill:#8f8,stroke:#0a0
+classDef matmul fill:#f88,stroke:#a00
+
+subgraph CausalSelfAttention["Standard CSA"]
+    direction BT
+    Wqkv["W<sub>qkv</sub>"] --> QKV["W<sub>qkv</sub>X"]
+    class Wqkv weight
+    xcsa[X] --> QKV
+    class QKV matmul
+    class xcsa input
+    QKV --> Q["Q<sub>&lt;t</sub>"]
+    QKV --> K["K<sub>&lt;t</sub>"]
+    QKV --> V["V<sub>&lt;t</sub>"]
+    Q --> QK["Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>"]
+    K --> QK
+    class QK matmul
+    QK --> mQK["Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)"] --> sQK["Softmax(Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)/√d<sub>m</sub>)"]
+    sQK --> attn
+    V -----> attn["Softmax(Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)/√d<sub>m</sub>)V<sub>&lt;t</sub>"]
+    class attn matmul
+end
+
+subgraph IncrementalCausalSelfAttention["Incremental CSA"]
+    direction BT
+    _Wqkv["W<sub>qkv</sub>"] --> _QKV["W<sub>qkv</sub>x<sub>t</sub><sup>T</sup>"]
+    class _Wqkv weight
+    _xcsa[x] --> _QKV
+    class _QKV matmul
+    class _xcsa input
+    _QKV --> _Q["q<sub>t</sub>"]
+    _QKV --> _K["k<sub>t</sub>"]
+    _QKV --> _V["v<sub>t</sub>"]
+    _Q ---> _QK["q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>"]
+    _K --> __K
+    K --> __K["K<sub>≤t</sub>"] -->_QK
+    class _QK matmul
+    _QK --> _mQK["Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>"] --> _sQK["Softmax(Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>)"]
+    _sQK --> _attn
+    _V --> __V
+    V --> __V["V<sub>≤t</sub>"] -----> _attn["Softmax(Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>)V<sub>≤t</sub>"]
+    class _attn matmul
+end
+```
+
+{%endcomment%}
 
 #### Karpathy
 
