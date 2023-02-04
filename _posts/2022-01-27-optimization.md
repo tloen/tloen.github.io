@@ -413,7 +413,7 @@ do not affect the embeddings of earlier ones."
 In more concrete terms: if we let the output of the `CausalSelfAttention` block
 be the matrix $$A = \{a_{ij}\} \in \mathbb{R}^{t \times d_m}$$,
 we can compute each entry $$a_{ij}$$ using just the values in
-$$A_{<t} =  \{a_{ij}\}_{1 \leq i \leq t}$$.
+$$X_{\leq i}\in \mathbb{R}^{i \times d_m}$$.
 
 It is enlightening to examine why this is the case.
 Below is the architecture of causal self-attention:
@@ -442,8 +442,8 @@ classDef matmul fill:#f88,stroke:#a00
     class attn matmul
 ```
 
-Imagine passing in the two matrices $$X_{<t} \in \mathbb{R}^{(t - 1) \times d_m}$$
-and $$X_{\leq t} = (\begin{smallmatrix}X_{<t} \\ x_{t}^T \end{smallmatrix})\in \mathbb{R}^{t \times d_m}$$.
+Imagine passing in the two matrices $$X_{<t} = \left(\begin{smallmatrix}x_1^T \\ \vdots \\ x_{t - 1}^T \end{smallmatrix}\right) \in \mathbb{R}^{(t - 1) \times d_m}$$
+and $$X_{\leq t} = \left(\begin{smallmatrix}X_{<t} \\ x_{t}^T \end{smallmatrix}\right)\in \mathbb{R}^{t \times d_m}$$.
 How does each node on the graph differ?
 
 - $$Q_{\leq t} = \left(\begin{matrix}Q_{<t} \\ q_t^T \end{matrix}\right)$$, where $$q_t = W_q x_t$$
@@ -563,7 +563,7 @@ with a `MemoizedCausalSelfAttention` that stores $$K_{<t}$$ and $$V_{<t}$$
 as buffers, and augment it with the ability to function
 both as a normal self-attention layer, overwriting the cache,
 and as an incremental self-attention layer, reading from the cache
-and writing $$k_t, v_t$$ back to it.
+and writing $$k_t$$ and $$v_t$$ back to it.
 Then we adapt the `generate` code in the base class
 to use our incremental self-attention functionality,
 and add our new `MemoizedGPT` to our test harness.
