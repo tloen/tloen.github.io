@@ -92,7 +92,7 @@ Within nanoGPT, the model is decomposed into the following PyTorch modules:
   - logic for pulling released GPT-2 weights via Huggingface and performing autoregressive sampling.
   - global configurations for dropout,
     and whether to include biases on certain layers (denoted with [brackets] below).
-- `Block,` containing:
+- `Block`, containing:
   - a residual block of:
     - a `LayerNorm`.
     - a `CausalSelfAttention`.
