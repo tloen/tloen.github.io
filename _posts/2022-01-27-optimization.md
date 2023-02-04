@@ -374,16 +374,33 @@ and all other variables as they are in [the previous post](https://www.ericjwang
 - $$W_{te}^T Z : \mathbb{R}^{1 \times (n_v \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (n_v \times 1)}$$,
   - $$tn_vd_m$$ FLOPs.
 
+The FLOP requirement of a single forward pass due to matmuls is therefore approximately
+
+$$F(t) = 6n_\ell td_m^2 + 4n_\ell t^2 d_m + 16td_m^2 + 2tn_vd_m.$$
+
+The XL model has $$n_\ell = 48, d_m = 1600, n_v=50257$$,
+so our polynomial simplifies to
+
+$$F(t) = (3.1\times10^5)t + (9.4\times10^8)t^2.$$
+
+Here are some values of this function:
+
+| $$t$$    | $$(3.1\times10^5)t$$   | $$(9.4\times10^8)t^2$$ | $$F(t)$$               |
+| -------- | ---------------------- | ---------------------- | ---------------------- |
+| $$256$$  | $$2.4 \times 10^{11}$$ | $$2.0 \times 10^{10}$$ | $$2.4 \times 10^{11}$$ |
+| $$512$$  | $$4.8 \times 10^{11}$$ | $$8.0 \times 10^{10}$$ | $$5.6 \times 10^{11}$$ |
+| $$1024$$ | $$9.6 \times 10^{11}$$ | $$3.2 \times 10^{11}$$ | $$1.3 \times 10^{12}$$ |
+
+We see that forward passes tend to take several hundred gigaflops.
+
 Because the nanoGPT autoregressive sampling code evaluates the forward pass for $$256 \leq t < 512$$,
-the FLOP requirement of our current algorithm due to matmuls is
-approximately
+the entire model should take at least $$\sum_{t = 256}^{511} F(t) \approx 1.04 \times 10^{14}$$ FLOPs,
+or 104 TFLOPs. (The RTX 4090 spec says it has a peak FP32 TFLOPS of 82.6 on the boost clock,
+but I won't even pretend I'm using the GPU anywhere near optimally yet.)
 
-$$\sum_{t = 256}^{511} \left(6n_\ell td_m^2 + 4n_\ell t^2 d_m + 16td_m^2 + 2tn_vd_m \right),$$
-
-or around 102 trillion.
-The absurdity of this number, and of the complexity implied by the above expression,
-leads us to our first optimization — an easy one, which requires little knowledge
-of how the hardware works.
+This suggests our first optimization —
+an easy one at the algorithmic level, which requires little knowledge
+of how the hardware works but slashes the FLOP complexity from $$\Theta(n^3)$$ to $$\Theta(n^2)$$.
 
 ---
 
@@ -540,143 +557,88 @@ because it doesn't involve interactions between multiple $$t$$,
 but we should make sure to
 offset the positional embeddings $$W_{pe}$$ accordingly.
 
-{%comment%}
-But we can do a little better if we're creative about what we memoize.
-Let's unwind $$W_{qkv}$$ into its constituent projections $$W_q, W_k, W_v$$.
-Remember that $$q_t \triangleq W_q x_t + b_q$$ and $$k_t \triangleq W_k x_t + b_k$$, so
+We implement KV caching in `implementations/memoized.py`.
+We override the base implementation of `CausalSelfAttention`
+with a `MemoizedCausalSelfAttention` that stores $$K_{<t}$$ and $$V_{<t}$$
+as buffers, and augment it with the ability to function
+both as a normal self-attention layer, overwriting the cache,
+and as an incremental self-attention layer, reading from the cache
+and writing $$k_t, v_t$$ back to it.
+Then we adapt the `generate` code in the base class
+to use our incremental self-attention functionality,
+and add our new `MemoizedGPT` to our test harness.
 
-$$
-\begin{align}
-q_t^T K_{\leq t}^T &= (W_qx_t + b_q)^T \left(\begin{smallmatrix}K_{< t}^T & k_t\end{smallmatrix} \right) \\
-\end{align}
-$$
+This gives us a marked improvement in performance.
+First, the time taken for the execution of a single task falls from 11 seconds to 7 seconds.
+More importantly, however, we are able to run much larger batches.
+Whereas the base model was unable to run with a concurrent batch size greater than 1
+(as it was already running with an "effective" batch size of up to 512),
+the KV-cached model can concurrently execute dozens of tasks.
 
-$$= \left(\begin{smallmatrix}(W_qx_t + b_q)^TK_{< t}^T & (W_qx_t + b_q)^Tk_t\end{smallmatrix}\right)$$
+In fact, the limiting factor turns out not to be FLOPS but memory;
+my implementation instantiates the buffers with size $$B \times n_h \times L \times d_m / n_h$$
+for some fixed constant $$B, L$$ representing the maximum batch size supported
+and the maximum sequence length supported.
+Because we have two such buffers for each of the $$n_\ell=48$$ layers,
+and nanoGPT uses 4-byte `fl32` for everything,
+the total memory occupied is $$2 n_\ell BLd_m\cdot 4 = 2\cdot 48\cdot 1600 \cdot 4 \cdot BL = 614400BL$$
+bytes.
+And if we set $$L$$ to 512 — the minimum value required to execute a task) —
+we come to the unfortunate realization that our buffers take up
+$$0.29B$$ gibibytes and that we can only fit a batch size of 32 on the GPU.
+Right?
 
-$$= \left(\begin{smallmatrix}x_t^T (W_q^T K_{< t}^T) + b_q^T K_{<t}^T & x_t^T (W_q^T k_t) + b_q^T k_t\end{smallmatrix}\right).$$
+---
 
-If we cache $$W_q^TK_{\leq t}^T$$ and $$b_q^TK_{\leq t}^T$$
-instead of $$K_{\leq t}$$, the operations for computing $$q_t^T K_{\leq t}^T$$ become:
+#### Day 2: fp16 quantization
 
-- $$k_t = W_k x_t + b_t$$, which takes $$2d_m(d_m+1)$$ FLOPs;
-- $$W_q^T k_t$$, which takes $$2d_m^2$$ FLOPs and is cached;
-- $$b_q^T k_t$$, which takes $$2d_m$$ FLOPs and is cached;
-- $$x^T (W_q^T k_t)$$, which takes $$2d_m$$ FLOPs;
-- $$x^T (W_q^T k_t)$$, which takes $$2(d_m)$$ FLOPs;
-- Some more additions that take $$O(d_m)$$ FLOPs.
+Let's say we could make all the values on the GPU take up half as much space as they
+did before. What should the new batch size be?
+Well, if we could previously support a batch size of 32, we could argue heuristically
+that the parameters and buffers now take up just 12 GiB,
+and we can fit another 12 GiB / (0.15 GiB) = 80 buffers on the GPU
+for a total of 112.
 
-$$= \mathrm{Softmax}(d^{-1/2}_m  \left(\begin{smallmatrix}(W_qx_t + b_q)^TK_{< t}^T & (W_qx_t + b_q)^T(W_kx_t + b_k)\end{smallmatrix}\right))V_{\leq t}$$
+We'd be wrong, though, because I'm also using the GPU to drive my 5K monitor,
+so it's already got 1.75 GiB permanently set aside.
+Moreover, a larger batch size also increases the size of other tensors in the graph,
+which grow with the buffers.
+It all nets out to being able to support a batch size of 81,
+and I know this because actually halving the memory usage of all floats on the GPU
+to test this is the easy part:
 
-$$= \mathrm{Softmax}(d^{-1/2}_m \left(\begin{smallmatrix}x_t^TW_q^TK_{<t}^T + b_q^T K_{< t}^T & x_t^TW_q^Tk_t + b_q^T k_t\end{smallmatrix}\right))V_{\leq t}$$
-$$= \mathrm{Softmax}(d^{-1/2}_m \left(\begin{smallmatrix}x_t^TW_q^TK_{<t}^T + b_q^T K_{< t}^T & x_t^TW_q^T(W_k x_t + b_k) + b_q^T (W_k x_t + b_k)\end{smallmatrix}\right))V_{\leq t}$$
-$$\mathrm{Softmax}(d^{-1/2}_mq_t^T K_{\leq t}^T)V_{\leq t} = \mathrm{Softmax}(d^{-1/2}_m x_t^T W_q^T K_{\leq t}^T)V_{\leq t}$$
-$$= \mathrm{Softmax}\left(d^{-1/2}_m x_t^T \left(\begin{smallmatrix}W_q^T K_{< t}^T & W_q^T k_t\end{smallmatrix}\right)\right)V_{\leq t}$$
-$$= \mathrm{Softmax}\left(d^{-1/2}_m x_t^T \left(\begin{smallmatrix}W_q^T K_{< t}^T & W_q^T W_k x_t\end{smallmatrix}\right)\right)V_{\leq t}$$
+```python
+# implementations/fp16.py, full text
 
-or
+from implementations.base import GPTConfig
+from implementations.memoized import MemoizedGPT
 
-$$\mathrm{Softmax}\left(d^{-1/2}_m x_t^T \left(\begin{smallmatrix}W_q^T K_{< t}^T +& W_q^T W_k x_t\end{smallmatrix}\right)\right)V_{\leq t}$$
 
-if we include biases.
+class FP16MemoizedGPT(MemoizedGPT):
+    def __init__(self, config: GPTConfig):
+        super().__init__(config)
+        self.half()
 
-If we memoize $$W_q^TK_{\leq t}$$ instead of $$K_{\leq t}$$ and precompute $$W_q^TW_k$$ (accounting for biases, of course, so more like $$W_q^TW_k + W_qb_k + b_q^T$$), we need only the matrix multiplications
-
--
-
-```mermaid
-
-flowchart BT
-classDef weight fill:#88f,stroke:#00a
-classDef input fill:#8f8,stroke:#0a0
-classDef matmul fill:#f88,stroke:#a00
-
-subgraph CausalSelfAttention["Standard CSA"]
-    direction BT
-    Wqkv["W<sub>qkv</sub>"] --> QKV["W<sub>qkv</sub>X"]
-    class Wqkv weight
-    xcsa[X] --> QKV
-    class QKV matmul
-    class xcsa input
-    QKV --> Q["Q<sub>&lt;t</sub>"]
-    QKV --> K["K<sub>&lt;t</sub>"]
-    QKV --> V["V<sub>&lt;t</sub>"]
-    Q --> QK["Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>"]
-    K --> QK
-    class QK matmul
-    QK --> mQK["Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)"] --> sQK["Softmax(Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)/√d<sub>m</sub>)"]
-    sQK --> attn
-    V -----> attn["Softmax(Mask(Q<sub>&lt;t</sub>K<sub>&lt;t</sub><sup>T</sup>)/√d<sub>m</sub>)V<sub>&lt;t</sub>"]
-    class attn matmul
-end
-
-subgraph IncrementalCausalSelfAttention["Incremental CSA"]
-    direction BT
-    _Wqkv["W<sub>qkv</sub>"] --> _QKV["W<sub>qkv</sub>x<sub>t</sub><sup>T</sup>"]
-    class _Wqkv weight
-    _xcsa[x] --> _QKV
-    class _QKV matmul
-    class _xcsa input
-    _QKV --> _Q["q<sub>t</sub>"]
-    _QKV --> _K["k<sub>t</sub>"]
-    _QKV --> _V["v<sub>t</sub>"]
-    _Q ---> _QK["q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>"]
-    _K --> __K
-    K --> __K["K<sub>≤t</sub>"] -->_QK
-    class _QK matmul
-    _QK --> _mQK["Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>"] --> _sQK["Softmax(Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>)"]
-    _sQK --> _attn
-    _V --> __V
-    V --> __V["V<sub>≤t</sub>"] -----> _attn["Softmax(Mask(q<sub>t</sub><sup>T</sup>K<sub>≤t</sub><sup>T</sup>)/√d<sub>m</sub>)V<sub>≤t</sub>"]
-    class _attn matmul
-end
+    @classmethod
+    def from_pretrained(cls, *args, **kwargs):
+        gpt = super().from_pretrained(*args, **kwargs)
+        gpt.half()
+        return gpt
 ```
 
-#### Karpathy
+Note that the `FP16MemoizedGPT` is able to execute 81 tasks in the ballpark of six seconds.
+That's already about 150 times more throughput than the base implementation!
+
+---
+
+{%comment%}
+
+#### Karpathy 128
 
 #### FL8 quantization
 
 #### Flash attention
 
 #### PyTorch 2.0
-
-I install `miniconda`, then pull the nightly build of PyTorch into a `dl` environment.
-
-[^ding]:
-    > 楚子伐陸渾之戎，遂至於雒，觀兵于周疆。定王使王孫滿勞楚子。
-    > 楚子問鼎之大小、輕重焉。
-    > 對曰：「在德不在鼎。昔夏之方有德也，遠方圖
-    > 物，貢金九牧，鑄鼎象物，百物而為之備，使民知神、姦。故民入川澤、
-    > 山林，不逢不若。螭魅罔兩，莫能逢之。用能協于上下，以承天休。桀有昏德，鼎遷于商，載祀六百。商紂暴虐，鼎遷于周。德之休明，雖小，
-    > 重也。其姦回昏亂，雖大，輕也。天祚明德，有所厎止。成王定鼎于郟
-    > 鄏，卜世三十，卜年七百，天所命也。周德雖衰，天命未改。鼎之輕重，未
-    > 可問也。」
-    >
-    > The Master of Chu attacked the Rong of Luhun, and consequently
-    > reached the Luo River. He drilled his troops at the border of Zhou. King
-    > Ding sent Wangsun Man to honor the exertions of the Master of Chu.
-    > The latter asked about the size and weight of [the cauldrons](https://en.wikipedia.org/wiki/King_Zhuang_of_Chu). Wangsun
-    > Man replied, “Size and weight depend on virtue, not on the cauldrons.
-    > In the past, just when Xia possessed virtue, men from afar depicted
-    > various creatures, and the nine superintendents submitted metal, so
-    > that cauldrons were cast with images of various creatures. The hundred
-    > things were therewith completely set forth, and the people thus knew the
-    > spirits and the evil things. That was why when the people entered rivers,
-    > marshes, mountains, and forests, they would not meet what could harm
-    > them, and the sprites of the hills and waters could not get at them. Thus,
-    > they were able to harmonize with those above and below them and to
-    > receive Heaven’s blessings. The last Xia king, Jie, possessed dimmed
-    > virtue, and the cauldrons were moved to the house of Shang, there to
-    > remain for six hundred years. The last Shang king, Zhòu, was violent and
-    > tyrannical, and the cauldrons were moved to the house of Zhou. When
-    > virtue is bright and resplendent, the cauldrons, though small, are heavy.
-    > When virtue is distorted, dimmed, and confused, the cauldrons, though
-    > large, are light. Heaven blesses those of bright virtue, giving them the
-    > place for realizing and maintaining it. When King Cheng put the cauldrons in place at Jiaru, he divined about the number of generations and
-    > got thirty; he divined about the number of years and got seven hundred.
-    > This is what Heaven has commanded. Although Zhou virtue is in
-    > decline, the heavenly command has not yet changed. The question of
-    > whether the cauldrons are light or heavy may not be asked yet.”
-    >
-    > _Zuozhuan_ trans. Durrant, Li, Schaberg (_c._ 300 BC)
 
 {%endcomment%}
