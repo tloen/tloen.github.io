@@ -367,36 +367,42 @@ and all other variables as they are in [the previous post](https://www.ericjwang
   - in total $$2n_\ell t^2d_m$$ FLOPs;
 - $$n_\ell$$ instances of $$\text{Softmax}(\text{Mask}(\frac{QK^T}{\sqrt{d_m}}))V: \mathbb{R}^{t \times t} \times \mathbb{R}^{t \times d_m} \rightarrow \mathbb{R}^{t \times d_m}$$,
   - in total $$2 n_\ell t^2d_m$$ FLOPs;
-- $$W_1x : \mathbb{R}^{1 \times (4d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (4d_m \times 1)}$$,
-  - about $$8td_m^2$$ FLOPs;
-- $$W_2(\text{GELU}(W_1x)) : \mathbb{R}^{1 \times (4d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (4d_m \times 1)}$$,
-  - about $$8td_m^2$$ FLOPs;
+- $$n_\ell$$ instances of $$W_1x : \mathbb{R}^{1 \times (4d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (4d_m \times 1)}$$,
+  - in total about $$8n_\ell td_m^2$$ FLOPs;
+- $$n_\ell$$ instances of $$W_2(\text{GELU}(W_1x)) : \mathbb{R}^{1 \times (4d_m \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (4d_m \times 1)}$$,
+  - in total about $$8 n_\ell td_m^2$$ FLOPs;
 - $$W_{te}^T Z : \mathbb{R}^{1 \times (n_v \times d_m)} \times \mathbb{R}^{t \times (d_m \times 1)} \rightarrow \mathbb{R}^{t \times (n_v \times 1)}$$,
-  - $$tn_vd_m$$ FLOPs.
+  - $$n_vd_m$$ FLOPs, because we only really care about the final token's logits.
 
 The FLOP requirement of a single forward pass due to matmuls is therefore approximately
 
-$$F(t) = 6n_\ell td_m^2 + 4n_\ell t^2 d_m + 16td_m^2 + 2tn_vd_m.$$
+$$
+\begin{align}F(t) &= 6n_\ell td_m^2 + 4n_\ell t^2 d_m + 16n_\ell td_m^2 + 2n_vd_m
+\\&=22n_\ell td_m^2 + 4n_\ell t^2d_m + 2n_vd_m
+\\&=(4n_\ell d_m) t^2 + (22n_\ell d_m^2)t + 2n_vd_m.
+\end{align}
+$$
 
 The XL model has $$n_\ell = 48, d_m = 1600, n_v=50257$$,
 so our polynomial simplifies to
 
-$$F(t) = (3.1\times10^5)t + (9.4\times10^8)t^2.$$
+$$F(t) \approx (3.1\times 10^5) t^2 + (2.7 \times 10^9)t + 1.6 \times 10^8.$$
 
 Here are some values of this function:
 
-| $$t$$    | $$(3.1\times10^5)t$$   | $$(9.4\times10^8)t^2$$ | $$F(t)$$               |
-| -------- | ---------------------- | ---------------------- | ---------------------- |
-| $$256$$  | $$2.4 \times 10^{11}$$ | $$2.0 \times 10^{10}$$ | $$2.4 \times 10^{11}$$ |
-| $$512$$  | $$4.8 \times 10^{11}$$ | $$8.0 \times 10^{10}$$ | $$5.6 \times 10^{11}$$ |
-| $$1024$$ | $$9.6 \times 10^{11}$$ | $$3.2 \times 10^{11}$$ | $$1.3 \times 10^{12}$$ |
+| $$t$$    | QKV                     | Attn                    | MLP                     | LM head                | $$F(t)$$                |
+| -------- | ----------------------- | ----------------------- | ----------------------- | ---------------------- | ----------------------- |
+| $$256$$  | $$1.89 \times 10^{11}$$ | $$2.01 \times 10^{10}$$ | $$5.03 \times 10^{11}$$ | $$1.61 \times 10^{8}$$ | $$7.12 \times 10^{11}$$ |
+| $$512$$  | $$3.77 \times 10^{11}$$ | $$8.05 \times 10^{10}$$ | $$1.01 \times 10^{12}$$ | $$1.61 \times 10^{8}$$ | $$1.46 \times 10^{12}$$ |
+| $$1024$$ | $$7.55 \times 10^{11}$$ | $$3.22 \times 10^{11}$$ | $$2.01 \times 10^{12}$$ | $$1.61 \times 10^{8}$$ | $$3.09 \times 10^{12}$$ |
+| $$2048$$ | $$1.51 \times 10^{12}$$ | $$1.29 \times 10^{12}$$ | $$4.03 \times 10^{12}$$ | $$1.61 \times 10^{8}$$ | $$6.83 \times 10^{12}$$ |
 
-We see that forward passes tend to take several hundred gigaflops.
+We see that forward passes tend to take several teraflops each.
 
 Because the nanoGPT autoregressive sampling code evaluates the forward pass for $$256 \leq t < 512$$,
-the entire model should take at least $$\sum_{t = 256}^{511} F(t) \approx 1.04 \times 10^{14}$$ FLOPs,
-or 104 TFLOPs. (The RTX 4090 spec says it has a peak FP32 TFLOPS of 82.6 on the boost clock,
-but I won't even pretend I'm using the GPU anywhere near optimally yet.)
+the entire model should take at least $$\sum_{t = 256}^{511} F(t) \approx 2.77 \times 10^{14}$$ FLOPs,
+or 277 TFLOPs. (The RTX 4090 spec says it has a peak FP32 TFLOPS of 82.6 on the boost clock,
+but I won't pretend I'm using the GPU anywhere near optimally yet.)
 
 This suggests our first optimization —
 an easy one at the algorithmic level, which requires little knowledge
@@ -567,8 +573,55 @@ and writing $$k_t$$ and $$v_t$$ back to it.
 Then we adapt the `generate` code in the base class
 to use our incremental self-attention functionality,
 and add our new `MemoizedGPT` to our test harness.
+The code is [here](https://github.com/tloen/transformer-experiments/blob/main/implementations/memoized.py).
 
-This gives us a marked improvement in performance.
+---
+
+#### Interlude: FLOP review
+
+Let's review where we are FLOP-wise.
+Our current sampling procedure is to run one "full" forward pass with $$t_{min} = 256$$
+tokens to populate the $$KV$$ cache, then $$t_{max} - (t_{min} + 1) = 255$$
+"incremental" forward passes to sample autoregressively. Thus:
+
+- We're passing every token into the $$QKV$$-projection once,
+  for a matmul FLOP count of $$6(t_{max} - 1)d_m^2 + O(t_{max} d_m)$$.
+- We're executing our feed-forward network for every token as well, so we end up
+  running it on $$t_{max} - 1$$ tokens, for a matmul FLOP count of $$16(t_{max} - 1)d_m^2$$.
+- We're also evaluating the LM head for the last token on each pass,
+  for a matmul FLOP count of $$2(t_{max} - t_{min})n_vd_m$$.
+- We're evaluating the full attention matrix from $$QKV$$ once
+  for a matmul FLOP count of $$4 n_\ell d_m (t_{min})^2$$.
+- We're then evaluating a set of incremental attention vectors,
+  each of which takes $$4 n_\ell td_m$$ FLOPs,
+  at $$256 < t < 512$$,
+  for a matmul FLOP count of $$\sum_{t = 257}^{511} 4 t n_\ell d_m$$.
+
+This works out to a total of 0.12 TFLOPs, broken down as follows:
+
+![](/assets/images/matmul_pie_no_title.png)
+
+From this calculation, we can draw the following observations:
+
+- We are clearly memory-bottlenecked, because the theoretical maximum
+  fp16/fp32 throughput on the RTX 4090 is 82.6 TFLOPS, implying a maximum task throughput
+  of 687 tasks per second.
+- LM head projection takes a surprisingly large amount of FLOPs (over a third).
+- Because our $$KV$$-caching implementation implicitly only computes the masked values
+  of the attention matrix, it's twice as efficient as the "full" attention mechanism in the first step.
+
+To the best of my knowledge, the only obvious inference optimization remaining that reduces
+FLOPs is to fuse the mask to the matmul for a 12.5% speedup.
+(I could think of a few architectural changes that could get us further,
+like sparse attention or removing the bias on the $$QKV$$ network.)
+We'll get to it in due time, but it's time to start thinking about making better
+use of the specific features of our hardware.
+
+---
+
+#### Day 2: Quantization (fp16, fp8)
+
+KV caching gives us a marked improvement in performance.
 First, the time taken for the execution of a single task falls from 11 seconds to 7 seconds.
 More importantly, however, we are able to run much larger batches.
 Whereas the base model was unable to run with a concurrent batch size greater than 1
@@ -576,8 +629,8 @@ Whereas the base model was unable to run with a concurrent batch size greater th
 the KV-cached model can concurrently execute dozens of tasks.
 
 In fact, the limiting factor turns out not to be FLOPS but memory;
-my implementation instantiates the buffers with size $$B \times n_h \times L \times d_m / n_h$$
-for some fixed constant $$B, L$$ representing the maximum batch size supported
+my implementation instantiates the buffers with size $$B \times n_h \times L \times (d_m / n_h)$$
+for fixed constants $$(B, L)$$ representing the maximum batch size supported
 and the maximum sequence length supported.
 Because we have two such buffers for each of the $$n_\ell=48$$ layers,
 and nanoGPT uses 4-byte `fl32` for everything,
@@ -587,10 +640,6 @@ And if we set $$L$$ to 512 — the minimum value required to execute a task) —
 we come to the unfortunate realization that our buffers take up
 $$0.29B$$ gibibytes and that we can only fit a batch size of 32 on the GPU.
 Right?
-
----
-
-#### Day 2: fp16 quantization
 
 Let's say we could make all the values on the GPU take up half as much space as they
 did before. What should the new batch size be?
@@ -628,6 +677,43 @@ class FP16MemoizedGPT(MemoizedGPT):
 
 Note that the `FP16MemoizedGPT` is able to execute 81 tasks in the ballpark of six seconds.
 That's already about 150 times more throughput than the base implementation!
+
+A natural question is whether we can make the jump from fp16 to fp8.
+Theoretically, this would be amazing for two reasons:
+
+- **Memory.** Based on the results above, I estimate[^136] that storing all parameters in
+  fp8 would allow us increase our batch size up to a theoretical maximum of 136
+- **FLOPs.** The [Ada whitepaper](https://images.nvidia.com/aem-dam/Solutions/geforce/ada/nvidia-ada-gpu-architecture.pdf)
+  indicates that the RTX 4090 is capable of 320.7 fp8 TFLOPs, a 4x speed increase.
+- **I/O.** It's faster to load information in and out of DRAM if there's less information to load!
+
+PyTorch doesn't support fp8 yet, but Nvidia provides a [Transformer Engine](https://github.com/NVIDIA/TransformerEngine/) library[^nvidia] that
+effectively acts as an fp8 extension to PyTorch.
+Transformer Engine is theoretically compatible with the Hopper and Ada GPU architectures,
+and it contains drop-in replacements for `torch.nn.Linear` and `torch.nn.LayerNorm`,
+as well as higher-level operators like `LayerNormMLP` and `TransformerLayer`.
+Installing it is a little tricky, as it needs to be built with alongside 11.8,
+which requires gcc and g++ version 11, which need to be installed separately and symlinked.
+And when the whole thing is all set up and ready, we receive the final disappointment: despite having promised fp8 inference on Ada,
+[Nvidia is only delivering it in CUDA 12.1 in Q2](https://github.com/NVIDIA/TransformerEngine/issues/15#issuecomment-1370350562).
+How horrible! We'll have to quantize to int8 instead.
+
+[^nvidia]:
+    Some marketing executive at Nvidia decided to pitch the Transformer Engine
+    as a hardware feature that comes "bundled" with the Hopper architecture —
+    an odd sell, as the Transformer Engine now comes "bundled" with
+    4000-series consumer GPUs as well.
+
+[^136]:
+    Let's say that rendering my desktop takes 1.75 GiB.
+    Then 22.75 GiB remain for CUDA, consisting of parameters, buffers, and activations.
+    The buffers and activations scale with the batch size and the weights do not,
+    so if we let $$P$$ be the total memory taken by the fp32 parameters
+    and $$BA$$ the memory taken by the fp32 buffers and activations,
+    we have $$P + 32BA \approx P/2 + 81BA/2 \approx 22.5$$,
+    from which we may conclude that each batch element adds about 0.45 GiB
+    of memory usage in the fp32 regime and about 0.11 GiB in the fp8 regime,
+    for a theoretical batch size of around 136.
 
 ---
 
