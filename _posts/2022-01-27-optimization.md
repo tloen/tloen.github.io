@@ -611,7 +611,8 @@ From this calculation, we can draw the following observations:
   of the attention matrix, it's twice as efficient as the "full" attention mechanism in the first step.
 
 To the best of my knowledge, the only obvious inference optimization remaining that reduces
-FLOPs is to fuse the mask to the matmul for an 8.4% speedup.
+FLOPs is to fuse the mask to the matmul in the "full" attention step
+for an 8.4% speedup.
 (I could think of a few architectural changes that could get us further,
 like sparse attention or removing the bias on the $$QKV$$ network.)
 We'll get to it in due time, but it's time to start thinking about making better
