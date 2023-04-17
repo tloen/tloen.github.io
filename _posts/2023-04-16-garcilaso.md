@@ -46,7 +46,7 @@ That with me die my worries and my cares. \
 \
 I meet my end because my heart I gave — \
 _Sans artifice_, to one who’d quickly see \
-Myself destroyed, a body in the grave \
+Myself destroyed, a body in the grave, \
 If she so wished, and so her wish may be. \
 \
 My will condemns me; less regard has hers; \
