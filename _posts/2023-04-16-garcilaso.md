@@ -41,7 +41,7 @@ I could have met a darker, sadder fate. \
 \
 But when remembrance of the path recedes, \
 I wonder why such sadness I should bear: \
-I’ve met my end; with heavy heart I see \
+I’ve met my end; heart heavy, how I heed \
 That with me die my worries and my cares. \
 \
 I meet my end because my heart I gave — \
