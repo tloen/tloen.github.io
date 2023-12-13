@@ -57,8 +57,7 @@ body {
 }
 
 .container {
-  	max-width: 580px;
-  	margin: auto;
+	  margin: 1rem;
 }
 
 .container_post {
@@ -214,9 +213,8 @@ blockquote {
 }
 
 pre, code {
-    background-color:#eeeeee;
     font-size: 0.8rem;
-    font-family: 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace;
+    font-family: 'Iosevka Web', monospace;
     overflow: auto;
     text-transform: none;
 }
@@ -271,13 +269,14 @@ hr {
 
 /* START 'header' */
 .header {
+  margin-bottom: 2rem;
 
   &-title {
 			font-weight: 400;
 			font-style: italic;
 
     a {
-      	color: #660000;
+      	color: black;
 
       &:hover,
       &:focus {
@@ -296,10 +295,9 @@ hr {
     margin-bottom: 1.2rem;
     font-size: 1rem;
     font-weight: 600;
-    text-decoration: underline;                              
 
     a {
-      	color: #660000;
+      	color: #ca0602;
 
       &:hover,
       &:focus {
@@ -309,13 +307,11 @@ hr {
   }
 
   .header-title {
-	margin-top: 5rem;
+	// margin-top: 5rem;
   }
 
   .header-nav {
-		margin-top: 5rem;
-    	margin-bottom: 5rem;
-		text-align: center;
+		// text-align: center;
 
     a {
       	color: #808080;
@@ -487,10 +483,6 @@ hr {
 .highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
 .highlight pre {
 	padding: 1em 1em;
-}
-code {
-	font-size: 0.8rem;
-	line-height: 0.6rem;
 }
 svg[id^="mermaid-"] { max-width: 100%; display: block; margin: auto; } 
 

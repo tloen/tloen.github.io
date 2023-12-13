@@ -1,52 +1,27 @@
-
-{%- assign pagnum = 10 -%}
-{%- include head.html -%}
+{%- assign pagnum = 10 -%} {%- include head.html -%}
 
 <div class="container">
+  {%- if site.posts.size == 0 -%}
+  <h2>No post found</h2>
+  {% endif %} {% comment %} 'pagin == false': index.html {% endcomment %} {% if
+  page.pagin == false %}
 
-    {%- if site.posts.size == 0 -%}
-        <h2>No post found</h2>
-    {% endif %}
+  <header class="header">
+    <h1 class="header-title">
+      <a href="{{ site.url }}/"> eric james wang </a>
+    </h1>
+    <nav class="header-nav">
+      {% for nav in site.nav %}
+      <a href="{{ site.url }}{{ nav.href }}">{{ nav.name }}</a>
+      {% endfor %}
+    </nav>
+  </header>
 
-    {% comment %}
-        'pagin == false': index.html
-    {% endcomment %}
-    {% if page.pagin == false %}
-
-        <header class="header">
-            <h1 class="header-title">
-                <a href="{{ site.url }}/">
-                    <img src="/assets/images/logo.png" />
-                </a>
-            </h1>
-            <nav class="header-nav">
-                {% for nav in site.nav %}
-                <a href="{{ site.url }}{{ nav.href }}">{{ nav.name }}</a>
-                {% endfor %}
-            </nav>
-        </header>
-
-    {% endif %}
-
-    {% comment %}
-        If true: 'archive', else 'index' 
-    {% endcomment %}
-    {%- if page.pagin -%}
-
-        {%- include top_small.html -%}
-        {%- include arch_css.html -%}
-
-        {%- for post in site.posts offset: pagnum %}
-            {% include loop.html %}
-        {%- endfor -%}
-
-    {%- else -%}
-
-        {%- for post in site.posts limit: pagnum -%}
-            {%- include loop.html -%}
-        {%- endfor -%}
-
-    {%- endif -%}
+  {% endif %} {% comment %} If true: 'archive', else 'index' {% endcomment %}
+  {%- if page.pagin -%} {%- include top_small.html -%} {%- include arch_css.html
+  -%} {%- for post in site.posts offset: pagnum %} {% include loop.html %} {%-
+  endfor -%} {%- else -%} {%- for post in site.posts limit: pagnum -%} {%-
+  include loop.html -%} {%- endfor -%} {%- endif -%}
 </div>
 
 <script src="http://localhost:35729/livereload.js"></script>

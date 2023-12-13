@@ -36,19 +36,8 @@
     {%- else -%}
         {%- assign len = 150 %}
     
-        <h2>
-            <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
-        </h2>
-        <time>{{ post.date | date_to_string }}</time>
+        <code>{{ post.date | date: "%Y-%m-%d" }} — <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></code> 
     
     {%- endif -%}
-    
-    {%- if works.size < 115 and page.title != "Archive" %}
-        <p class="desc">
-    {% else %}
-        <p class="desc">
-    {% endif %}
-        {{- works | truncate: len | strip }}
-        </p>
 </li>
 {% endunless -%}

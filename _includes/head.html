@@ -6,6 +6,10 @@
     <link rel="shortcut icon" href="{{ site.url }}/favicon.ico" />
     <link rel="stylesheet" href="{{ site.url }}/assets/style.css" />
     <link
+      href="https://iosevka-webfonts.github.io/iosevka/iosevka.css"
+      rel="stylesheet"
+    />
+    <link
       rel="alternate"
       type="application/atom+xml"
       title="Feed for {{ site.url }}"
@@ -73,14 +77,17 @@
     {% seo %}
     <!-- for mathjax support -->
     {% if page.usemathjax %}
-      <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-        TeX: { equationNumbers: { autoNumber: "AMS" } }
-        });
-      </script>
-      <script type="text/javascript" id="MathJax-script" async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
-      </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      type="text/javascript"
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
     {% endif %}
   </head>
   <body></body>
