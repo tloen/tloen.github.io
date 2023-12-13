@@ -46,10 +46,12 @@ We evaluate these predictors by the mean squared error,
 which admits the well-known _bias-variance decomposition_:
 
 $$
+\begin{align}
 MSE(\hat f_{\lambda})
-\triangleq E_{x,D}[(\hat f_{\lambda}(x;D) - f(x))^2] \\
-= (E_{x,D}[\hat f_{\lambda}(x;D) - f(x)])^2 + E_x Var_D[\hat f_{\lambda}(x;D)] \\
-= Bias[\hat f_\lambda]^2 + Variance[\hat f_\lambda].
+&\triangleq E_{x,D}[(\hat f_{\lambda}(x;D) - f(x))^2] \\
+&= (E_{x,D}[\hat f_{\lambda}(x;D) - f(x)])^2 + E_x Var_D[\hat f_{\lambda}(x;D)] \\
+&= Bias[\hat f_\lambda]^2 + Variance[\hat f_\lambda].
+\end{align}
 $$
 
 Note that our learning process is a black box;
@@ -66,8 +68,10 @@ But this is all we need to construct the bias-variance tradeoff.
 Consider the functions
 
 $$
-b_F(v) = \inf \left\{Bias[\hat f_\lambda]^2: \lambda \geq 0, Variance[\hat f_\lambda] \leq v\right\}, \\
-v_F(b) = \inf \left\{Variance[\hat f_\lambda]: \lambda \geq 0, Bias[\hat f_\lambda]^2 \leq b\right\}
+\begin{align}
+b_F(v) &= \inf \left\{Bias[\hat f_\lambda]^2: \lambda \geq 0, Variance[\hat f_\lambda] \leq v\right\}, \\
+v_F(b) &= \inf \left\{Variance[\hat f_\lambda]: \lambda \geq 0, Bias[\hat f_\lambda]^2 \leq b\right\}
+\end{align}
 $$
 
 where $$\inf {\emptyset} = +\infty$$.
