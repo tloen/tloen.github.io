@@ -214,29 +214,9 @@ $$\lim_{d_n \rightarrow \infty} \frac{n_\ell(4d_m^2 + 4d_m)}{n_\ell(8d_m^2 + 5d_
 It would be misleading to say that parameter scaling is the _only_ thing OpenAI
 has accomplished technologically;
 efficient training and inference of massively scaled models are significant
-technical challengs requiring a good amount of clever engineering.
+technical challenges requiring a good amount of clever engineering.
 
-At the same time, we shouldn't overstate the degree to which that engineering was done
-at OpenAI;
-OpenAI employees have claimed credit for _e.g._ the prenormalized architecture,
-which predates even the publication of "Attention Is All You Need,"
-and a number of the performance optimizations were discovered outside OpenAI itself.
-
-When faced with the observations that
-
-- besides sparse attention,
-  in-house technological achievements from OpenAI itself seem relatively few,
-- OpenAI executives regularly speak of the enormous efficacy of its employees
-  and the outcomes that small teams can attain, and
-- employees at OpenAI have a penchant for spinning off into their own competitor corporations, _e.g._ Anthropic, and raising obscene amounts,
-
-Occam's Razor would suggest that most of the organization's comparative
-advantage comes from its unique position with respect to the capital markets,
-that — despite protests to the contrary —
-it is still mostly true that "Google invented the transformer and OpenAI just scaled it up,"
-and that the employees who leave to start competitors are aware of this.
-
-If scaling and the engineering it requires are the main accomplishments of OpenAI
+But if scaling and the engineering it requires are the main accomplishments of OpenAI
 since 2018, it seems clear that one can still build
 a competitor LLM company by combining preferential access to the capital markets
 with a keen and persistent bureaucratic acumen.
@@ -262,11 +242,5 @@ and where the knowledge of how to build such organizations
 can only be learned from within one.
 
 In the limit, the power of the organization
-all falls down to the executive's ability to raise capital and apply standards.
+all falls down to the executive's ability to raise capital and allocate it well.
 Who, then, shall contend with Sam Altman?
-
----
-
-#### Appendix: the experts weigh in
-
-![](/assets/images/horace.png)
