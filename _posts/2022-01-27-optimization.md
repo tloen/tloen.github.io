@@ -1,7 +1,7 @@
 ---
 title: "Accelerating transformer inference on my RTX 4090"
 description: "Justifying an unjustifiable purchase. (I am financially ruined)"
-date: 2022-11-27
+date: 2022-07-27
 layout: post
 usemathjax: true
 usemermaid: true

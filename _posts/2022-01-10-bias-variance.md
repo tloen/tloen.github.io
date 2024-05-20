@@ -1,7 +1,7 @@
 ---
 title: "The bias-variance tradeoff is not a statistical concept"
 description: "Quick note on certain strawmen of statistical learning theory."
-date: 2023-01-10
+date: 2023-03-10
 layout: post
 usemathjax: true
 ---
