@@ -6,6 +6,8 @@ layout: post
 usemathjax: true
 ---
 
+_tl;dr it's a Pareto frontier and hence tautological_
+
 Some recent work in the theory of deep learning has been devoted to understanding
 the "model-wise double-descent" phenomenon empirically observed in deep models[^openai2019].
 Within certain families of deep models, trained under certain conditions,
