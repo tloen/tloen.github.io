@@ -20,7 +20,6 @@ You can find me elsewhere:
 
 - My email: `[firstname]@ericjwang.com`
 - My [GitHub.](https://github.com/tloen)
-- My [Twitter.](https://twitter.com/ecjwg)
 - My [Goodreads.](https://www.goodreads.com/ecjwg)
 - My [LinkedIn.](https://www.linkedin.com/in/eric-j-wang)
 
